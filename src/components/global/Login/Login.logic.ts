@@ -1,18 +1,17 @@
-import { useContext, useState } from "react";
-import {
+import { useState } from 'react';
+import type {
   HandleChangeAuthForm,
   HandleClickAuthForm,
-} from "../TabbedAuthForm.static";
-import API from "../../../configurations/API/API";
-import { AuthContext } from "../../../context/auth.context";
-import { SignUpFields } from "../SignUp/SignUp.logic";
+} from '../TabbedAuthForm.static';
+import API from '../../../configurations/API/API';
+import type { SignUpFields } from '../SignUp/SignUp.logic';
 
-export type LoginFields = Pick<SignUpFields, "email" | "password">;
+export type LoginFields = Pick<SignUpFields, 'email' | 'password'>;
 
 export const useLogin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleEmail = (e: HandleChangeAuthForm) => setEmail(e.target.value);
   const handlePassword = (e: HandleChangeAuthForm) =>
@@ -22,9 +21,9 @@ export const useLogin = () => {
     const body: LoginFields = { email, password };
 
     API.login(body)
-      .then((response) => {
-        setEmail("");
-        setPassword("");
+      .then(() => {
+        setEmail('');
+        setPassword('');
       })
       .catch((err) => console.error(err.response.data.errorMessage));
   };

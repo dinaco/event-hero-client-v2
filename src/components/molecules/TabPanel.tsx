@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { Box } from "@mui/material";
+import type { ReactNode } from 'react';
+import { Box } from '@mui/material';
 
 type TabPanelProps = {
   children: ReactNode;
@@ -15,7 +15,7 @@ const TabPanel = ({
 }: TabPanelProps): JSX.Element => {
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={tabValue !== index}
       id={`tabpanel-${index}`}
       {...other}

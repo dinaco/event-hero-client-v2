@@ -1,26 +1,29 @@
-import { Route, Routes } from "react-router-dom";
-import TabbedAuthForm from "./components/global/TabbedAuthForm";
+import { Route, Routes } from 'react-router-dom';
+import TabbedAuthForm from './components/global/TabbedAuthForm';
 
-function App() {
-  //TODO: Make login / signup actually work. On signup auto login
+const App = (): JSX.Element => {
+  // TODO: add github stuff, block main from push, create dev branch, create pipeline, create github actions,
+  //maybe auto deploy to netlify
 
-  //TODO: Create toastify component to handle messages
+  // TODO: Make login / signup actually work. On signup auto login
 
-  //TODO: implement route system
+  // TODO: Create toastify component to handle messages
 
-  //TODO: implement first unit tests
+  // TODO: implement route system
 
-  //TODO: enable prettier and eslint and pre commit husky
+  // TODO: implement first unit tests
 
-  //FIXME: layout not fitting entire screen
+  // TODO: enable prettier and eslint and pre commit husky
 
-  //TODO: upgrade vite to 4.0
+  // FIXME: layout not fitting entire screen
+
+  // TODO: upgrade vite to 4.0
 
   return (
     <Routes>
-      <Route path="/" element={<TabbedAuthForm />} />
+      <Route path='/' element={<TabbedAuthForm />} />
     </Routes>
   );
-}
+};
 
 export default App;

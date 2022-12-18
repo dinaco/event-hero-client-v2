@@ -1,15 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-import { BrowserRouter as Router } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
-import { Global } from "@emotion/react";
-import GlobalStyle from "./configurations/styles/GlobalStyles";
-import { AuthProviderWrapper } from "./context/auth.context";
-import { theme } from "./configurations/styles/Theme";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { Global } from '@emotion/react';
+import GlobalStyle from './configurations/styles/GlobalStyles';
+import { AuthProviderWrapper } from './context/auth.context';
+import { theme } from './configurations/styles/Theme';
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
       <ThemeProvider theme={theme}>

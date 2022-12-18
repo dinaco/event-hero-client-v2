@@ -1,10 +1,10 @@
-import axios from "axios";
-import { LoginFields } from "../../components/global/Login/Login";
-import { SignUpFields } from "../../components/global/SignUp/SignUp";
+import axios from 'axios';
+import type { LoginFields } from '../../components/global/Login/Login.logic';
+import type { SignUpFields } from '../../components/global/SignUp/SignUp.logic';
 
 enum Path {
-  Login = "/auth/login",
-  SignUp = "/auth/signup",
+  Login = '/auth/login',
+  SignUp = '/auth/signup',
 }
 
 export default class API {
@@ -20,7 +20,7 @@ export default class API {
     }
   }
 
-  public static async post(url: string, body: any) {
+  public static async post<T>(url: string, body: T) {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,

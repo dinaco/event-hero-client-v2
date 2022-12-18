@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
-import {
+import { useState } from 'react';
+import type {
   HandleChangeAuthForm,
   HandleClickAuthForm,
-} from "../TabbedAuthForm.static";
-import API from "../../../configurations/API/API";
+} from '../TabbedAuthForm.static';
+import API from '../../../configurations/API/API';
 
 export type SignUpFields = {
   email: string;
@@ -12,9 +12,9 @@ export type SignUpFields = {
 };
 
 export const useSignUp = () => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleEmail = (e: HandleChangeAuthForm) => setEmail(e.target.value);
   const handleName = (e: HandleChangeAuthForm) => setName(e.target.value);
@@ -24,9 +24,9 @@ export const useSignUp = () => {
     e.preventDefault();
     const body: SignUpFields = { email, password, name };
     API.signUp(body)
-      .then((response) => {
-        setEmail("");
-        setPassword("");
+      .then(() => {
+        setEmail('');
+        setPassword('');
       })
       .catch((err) => console.error(err.response.data.errorMessage));
   };

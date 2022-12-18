@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 const GlobalStyle = css`
   * {
@@ -22,8 +22,8 @@ const GlobalStyle = css`
   }
 
   a {
-    text-decoration: none !important;
-    //color: inherit;
+    text-decoration: none;
+    cursor: pointer;
   }
 `;
 

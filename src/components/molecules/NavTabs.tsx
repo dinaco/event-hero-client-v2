@@ -1,19 +1,19 @@
-import { Tabs, Tab } from "@mui/material";
-import { HandleChangeBetweenForms } from "../global/TabbedAuthForm";
+import { Tabs, Tab } from '@mui/material';
+import type { HandleChangeBetweenForms } from '../global/TabbedAuthForm';
 
 type NavTabProps = {
   tabValue: number;
   handleChange: HandleChangeBetweenForms;
   titles: string[];
-  variant?: "standard" | "scrollable" | "fullWidth";
+  variant?: 'standard' | 'scrollable' | 'fullWidth';
 };
 
 function NavTabs({ tabValue, handleChange, titles, variant }: NavTabProps) {
   return (
     <Tabs
       value={tabValue}
-      indicatorColor="primary"
-      textColor="primary"
+      indicatorColor='primary'
+      textColor='primary'
       onChange={handleChange}
       variant={variant}
     >

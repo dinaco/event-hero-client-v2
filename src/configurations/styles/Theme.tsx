@@ -1,9 +1,7 @@
-import { createTheme, styled } from "@mui/material/styles";
-import Checkbox from "@mui/material/Checkbox";
-import colors from "./config/colors";
-import { orange } from "@mui/material/colors";
+import { createTheme } from '@mui/material/styles';
+import colors from './config/colors';
 
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Theme {
     status: {
       danger: string;
@@ -22,10 +20,11 @@ export const theme = createTheme({
     ...colors,
   },
 });
-
+/*
 const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
   color: theme.status.danger,
   "&.Mui-checked": {
     color: theme.status.danger,
   },
 }));
+*/

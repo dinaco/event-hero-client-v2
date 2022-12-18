@@ -1,12 +1,17 @@
 {
   "name": "event-hero-client-v2",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src",
+    "prepare": "husky install",
+    "format": "prettier --config .prettierrc.cjs --write '**/*.{js,jsx,ts,tsx,json,md,css,graphql,prettierrc,yml}'",
+    "check-format": "prettier --config .prettierrc.cjs --check '**/*.{js,jsx,ts,tsx,json,md,css,graphql,prettierrc,yml}'",
+    "precommit": "lint-staged"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -26,8 +31,30 @@
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
     "@vitejs/plugin-react": "^2.2.0",
-    "typescript": "^4.6.4",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^24.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "2.8.1",
+    "typescript": "*",
     "vite": "^3.2.3"
+  },
+  "lint-staged": {
+    "*{ts,tsx}": [
+      "yarn format",
+      "eslint --cache --fix"
+    ]
   }
 }

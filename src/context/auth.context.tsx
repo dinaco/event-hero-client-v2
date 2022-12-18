@@ -1,5 +1,6 @@
-import { useState, useEffect, createContext, PropsWithChildren } from "react";
-import axios from "axios";
+import type { PropsWithChildren } from 'react';
+import { useState, useEffect, createContext } from 'react';
+import axios from 'axios';
 
 type AuthContextType = {
   isLoggedIn: boolean;
@@ -13,17 +14,17 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-function AuthProviderWrapper(props: PropsWithChildren<{}>) {
+function AuthProviderWrapper(props: PropsWithChildren<object>) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   const storeToken = (token: string) => {
-    localStorage.setItem("authToken", token);
+    localStorage.setItem('authToken', token);
   };
 
   const removeToken = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem('authToken');
   };
 
   const logoutUser = () => {
@@ -32,12 +33,11 @@ function AuthProviderWrapper(props: PropsWithChildren<{}>) {
   };
 
   const getToken = () => {
-    // console.log(localStorage.getItem("authToken"));
-    return localStorage.getItem("authToken");
+    return localStorage.getItem('authToken');
   };
 
   const authenticateUser = () => {
-    const storedToken = localStorage.getItem("authToken");
+    const storedToken = localStorage.getItem('authToken');
 
     if (storedToken) {
       axios
