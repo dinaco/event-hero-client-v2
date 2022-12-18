@@ -1,5 +1,3 @@
-import { useState } from "react";
-import axios from "axios";
 import {
   Grid,
   Paper,
@@ -11,57 +9,34 @@ import {
   Stack,
 } from "@mui/material";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
-import {
-  HandleChangeAuthForm,
-  HandleChangeBetweenForms,
-  HandleClickAuthForm,
-} from "../TabbedAuthForm";
+import { HandleChangeBetweenForms } from "../TabbedAuthForm.static";
+import useStyles from "./SignUp.style";
+import { useSignUp } from "./SignUp.logic";
 
 type Props = {
   handleChange: HandleChangeBetweenForms;
 };
 
 const Signup = ({ handleChange }: Props) => {
-  const paperStyle = {
-    padding: 20,
-    height: "50vh",
-    minWidth: 300,
-  };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const btnstyle = { margin: "8px 0" };
-
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleEmail = (e: HandleChangeAuthForm) => setEmail(e.target.value);
-  const handleName = (e: HandleChangeAuthForm) => setName(e.target.value);
-  const handlePassword = (e: HandleChangeAuthForm) =>
-    setPassword(e.target.value);
-  const handleSubmit = (e: HandleClickAuthForm) => {
-    e.preventDefault();
-    const body = { email, password, name };
-    axios
-      .post(`${process.env.VITE_BASE_API_URL}/auth/signup`, body)
-      .then(() => {
-        setEmail("");
-        setName("");
-        setPassword("");
-        handleChange(e, 0);
-      })
-      .catch((err) => console.error(err.response.data.errorMessage));
-  };
+  const { classes } = useStyles();
+  const {
+    name,
+    email,
+    password,
+    handleName,
+    handleEmail,
+    handlePassword,
+    handleSubmit,
+  } = useSignUp();
 
   return (
     <Grid>
-      <Paper style={paperStyle}>
-        <Grid>
-          <Avatar style={avatarStyle}>
+      <Paper className={classes.container}>
+        <Grid className={classes.header}>
+          <Avatar className={classes.avatar}>
             <AddCircleOutlineOutlinedIcon />
           </Avatar>
-          <Typography variant="h4" gutterBottom>
-            Sign Up
-          </Typography>
+          <Typography variant="h4">Sign Up</Typography>
         </Grid>
         <Stack spacing={1}>
           <TextField
@@ -91,12 +66,11 @@ const Signup = ({ handleChange }: Props) => {
           />
         </Stack>
         <Button
+          className={classes.button}
           type="submit"
-          style={btnstyle}
           fullWidth
           onClick={handleSubmit}
           variant="contained"
-          color="primary"
         >
           Sign up
         </Button>

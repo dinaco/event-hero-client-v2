@@ -1,5 +1,6 @@
 import { createTheme, styled } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
+import colors from "./config/colors";
 import { orange } from "@mui/material/colors";
 
 declare module "@mui/material/styles" {
@@ -17,8 +18,8 @@ declare module "@mui/material/styles" {
 }
 
 export const theme = createTheme({
-  status: {
-    danger: orange[500],
+  palette: {
+    ...colors,
   },
 });
 

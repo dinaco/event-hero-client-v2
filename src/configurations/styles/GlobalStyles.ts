@@ -1,18 +1,28 @@
 import { css } from "@emotion/react";
 
 const GlobalStyle = css`
-  body {
+  * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    font-size: 16px;
+  }
+  body {
+    display: flex;
+    min-height: 100vh;
+  }
+  #root {
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
   }
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
     //color: inherit;
   }
 `;

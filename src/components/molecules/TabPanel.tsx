@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Typography, Box } from "@mui/material";
+import { Box } from "@mui/material";
 
 type TabPanelProps = {
   children: ReactNode;

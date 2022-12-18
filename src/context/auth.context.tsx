@@ -41,7 +41,7 @@ function AuthProviderWrapper(props: PropsWithChildren<{}>) {
 
     if (storedToken) {
       axios
-        .get(`${process.env.REACT_APP_BASE_API_URL}/auth/verify`, {
+        .get(`${import.meta.env.REACT_APP_BASE_API_URL}/auth/verify`, {
           headers: {
             Authorization: `Bearer ${storedToken}`,
           },
