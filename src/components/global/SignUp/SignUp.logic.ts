@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import ServerAPI from '../../../configurations/API/ServerAPI';
 import type {
   HandleChangeAuthForm,
   HandleClickAuthForm,
 } from '../TabbedAuthForm.static';
-import API from '../../../configurations/API/API';
 
 export type SignUpFields = {
   email: string;
@@ -23,7 +23,8 @@ export const useSignUp = () => {
   const handleSubmit = (e: HandleClickAuthForm) => {
     e.preventDefault();
     const body: SignUpFields = { email, password, name };
-    API.signUp(body)
+
+    ServerAPI.signUp(body)
       .then(() => {
         setEmail('');
         setPassword('');

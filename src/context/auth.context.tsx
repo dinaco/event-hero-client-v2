@@ -1,11 +1,22 @@
 import type { PropsWithChildren } from 'react';
 import { useState, useEffect, createContext } from 'react';
-import axios from 'axios';
+import ServerAPI from '../configurations/API/ServerAPI';
+
+type UserInfo = {
+  email: string;
+  name: string;
+  profileImg?: string;
+  balance: number;
+  events: string[];
+  orders: string[];
+  role: string;
+  active: boolean;
+};
 
 type AuthContextType = {
   isLoggedIn: boolean;
   isLoading: boolean;
-  user: string | null;
+  user?: UserInfo;
   storeToken: (token: string) => void;
   authenticateUser: () => void;
   logoutUser: () => void;
@@ -17,7 +28,7 @@ const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 function AuthProviderWrapper(props: PropsWithChildren<object>) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<AuthContextType['user']>(undefined);
 
   const storeToken = (token: string) => {
     localStorage.setItem('authToken', token);
@@ -40,27 +51,26 @@ function AuthProviderWrapper(props: PropsWithChildren<object>) {
     const storedToken = localStorage.getItem('authToken');
 
     if (storedToken) {
-      axios
-        .get(`${import.meta.env.REACT_APP_BASE_API_URL}/auth/verify`, {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-          },
-        })
+      ServerAPI.verify({
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+        },
+      })
         .then((response) => {
           setIsLoggedIn(true);
           setIsLoading(false);
-          setUser(response.data);
+          setUser(response?.data);
         })
         .catch((err) => {
           setIsLoggedIn(false);
           setIsLoading(false);
-          setUser(null);
+          setUser(undefined);
           throw new Error(err);
         });
     } else {
       setIsLoggedIn(false);
       setIsLoading(false);
-      setUser(null);
+      setUser(undefined);
     }
   };
 

@@ -6,16 +6,22 @@ import SnackBar from '../../utilities/SnackBar';
 enum Path {
   Login = '/auth/login',
   SignUp = '/auth/signup',
+  Verify = '/auth/verify',
 }
 
-export default class API {
+type AuthHeaders = {
+  headers: {
+    Authorization: string;
+  };
+};
+
+export default class ServerAPI {
   public static async get(url: string) {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_API_URL}${url}`
       );
-      console.log(response);
-      return;
+      return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
@@ -29,8 +35,21 @@ export default class API {
           ...body,
         }
       );
-      console.log(response);
-      return;
+      return response;
+    } catch (error: any) {
+      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    }
+  }
+
+  public static async verify(body: AuthHeaders) {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_API_URL}${Path.Verify}`,
+        {
+          ...body,
+        }
+      );
+      return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
@@ -44,8 +63,7 @@ export default class API {
           ...body,
         }
       );
-      console.log(response);
-      return;
+      return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
@@ -59,8 +77,7 @@ export default class API {
           ...body,
         }
       );
-      console.log(response);
-      return;
+      return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }

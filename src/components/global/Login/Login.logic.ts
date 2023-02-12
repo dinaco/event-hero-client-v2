@@ -3,8 +3,8 @@ import type {
   HandleChangeAuthForm,
   HandleClickAuthForm,
 } from '../TabbedAuthForm.static';
-import API from '../../../configurations/API/API';
 import type { SignUpFields } from '../SignUp/SignUp.logic';
+import ServerAPI from '../../../configurations/API/ServerAPI';
 
 export type LoginFields = Pick<SignUpFields, 'email' | 'password'>;
 
@@ -20,7 +20,7 @@ export const useLogin = () => {
     e.preventDefault();
     const body: LoginFields = { email, password };
 
-    API.login(body)
+    ServerAPI.login(body)
       .then(() => {
         setEmail('');
         setPassword('');
