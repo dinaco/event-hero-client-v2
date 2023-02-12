@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import TabbedAuthForm from './components/global/TabbedAuthForm';
+import { ToastContainer } from 'react-toastify';
 
 const App = (): JSX.Element => {
+  //FIXME: usereducer for auth calls to API?
+
   // TODO: add github stuff, block main from push, create dev branch, create pipeline, create github actions,
   //maybe auto deploy to netlify
 
   // TODO: Make login / signup actually work. On signup auto login
-
-  // TODO: Create toastify component to handle messages
 
   // TODO: implement route system
 
@@ -20,9 +21,12 @@ const App = (): JSX.Element => {
   // TODO: upgrade vite to 4.0
 
   return (
-    <Routes>
-      <Route path='/' element={<TabbedAuthForm />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path='/' element={<TabbedAuthForm />} />
+      </Routes>
+      <ToastContainer />
+    </>
   );
 };
 

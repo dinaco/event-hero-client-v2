@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { LoginFields } from '../../components/global/Login/Login.logic';
 import type { SignUpFields } from '../../components/global/SignUp/SignUp.logic';
+import SnackBar from '../../utilities/SnackBar';
 
 enum Path {
   Login = '/auth/login',
@@ -15,8 +16,8 @@ export default class API {
       );
       console.log(response);
       return;
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
 
@@ -30,8 +31,8 @@ export default class API {
       );
       console.log(response);
       return;
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
 
@@ -45,8 +46,8 @@ export default class API {
       );
       console.log(response);
       return;
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
 
@@ -60,8 +61,8 @@ export default class API {
       );
       console.log(response);
       return;
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
 }
