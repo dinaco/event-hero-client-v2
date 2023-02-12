@@ -14,8 +14,6 @@ const App = (): JSX.Element => {
 
   // TODO: implement first unit tests
 
-  // TODO: enable prettier and eslint and pre commit husky
-
   // FIXME: layout not fitting entire screen
 
   // TODO: upgrade vite to 4.0
