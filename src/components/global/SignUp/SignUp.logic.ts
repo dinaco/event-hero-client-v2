@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ServerAPI from '../../../configurations/API/ServerAPI';
+import useServerAPIv2 from '../../../configurations/API/ServerAPIv2';
 import type {
   HandleChangeAuthForm,
   HandleClickAuthForm,
@@ -15,6 +15,7 @@ export const useSignUp = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const { userSignUp } = useServerAPIv2();
 
   const handleEmail = (e: HandleChangeAuthForm) => setEmail(e.target.value);
   const handleName = (e: HandleChangeAuthForm) => setName(e.target.value);
@@ -24,10 +25,10 @@ export const useSignUp = () => {
     e.preventDefault();
     const body: SignUpFields = { email, password, name };
 
-    ServerAPI.signUp(body)
+    userSignUp(body)
       .then(() => {
-        setEmail('');
         setPassword('');
+        // handleChange(e, 0); use this approach if you want to switch to login tab after sucessful signup
       })
       .catch((err) => console.error(err.response.data.errorMessage));
   };

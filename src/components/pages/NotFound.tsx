@@ -6,7 +6,7 @@ function NotFound() {
   return (
     <>
       <Navbar />
-      <Card sx={{ p: 4 }}>
+      <Card sx={{ width: '100%', p: 4 }}>
         <Typography variant='h5' gutterBottom component='div'>
           404 - Page Not Found
         </Typography>

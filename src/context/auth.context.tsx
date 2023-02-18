@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useState, useEffect, createContext } from 'react';
-import ServerAPI from '../configurations/API/ServerAPI';
+import useServerAPIv2 from '../configurations/API/ServerAPIv2';
 
 type UserInfo = {
   email: string;
@@ -23,12 +23,13 @@ type AuthContextType = {
   getToken: () => string | null;
 };
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+const AuthContext = createContext({} as AuthContextType);
 
-function AuthProviderWrapper(props: PropsWithChildren<object>) {
+function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<AuthContextType['user']>(undefined);
+  const { verifyAuthToken } = useServerAPIv2();
 
   const storeToken = (token: string) => {
     localStorage.setItem('authToken', token);
@@ -51,7 +52,7 @@ function AuthProviderWrapper(props: PropsWithChildren<object>) {
     const storedToken = localStorage.getItem('authToken');
 
     if (storedToken) {
-      ServerAPI.verify({
+      verifyAuthToken({
         headers: {
           Authorization: `Bearer ${storedToken}`,
         },
@@ -90,7 +91,7 @@ function AuthProviderWrapper(props: PropsWithChildren<object>) {
         getToken,
       }}
     >
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 }

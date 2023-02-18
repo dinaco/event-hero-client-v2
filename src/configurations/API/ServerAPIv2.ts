@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { useContext } from 'react';
 import type { LoginFields } from '../../components/global/Login/Login.logic';
 import type { SignUpFields } from '../../components/global/SignUp/SignUp.logic';
+import { AuthContext } from '../../context/auth.context';
 import SnackBar from '../../utilities/SnackBar';
 
 enum Path {
@@ -15,8 +17,10 @@ type AuthHeaders = {
   };
 };
 
-export default class ServerAPI {
-  public static async get(url: string) {
+const useServerAPIv2 = () => {
+  const { storeToken, authenticateUser } = useContext(AuthContext);
+
+  async function fetchRequest(url: string) {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_API_URL}${url}`
@@ -27,7 +31,7 @@ export default class ServerAPI {
     }
   }
 
-  public static async post<T>(url: string, body: T) {
+  async function postRequest<T>(url: string, body: T) {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
@@ -41,7 +45,7 @@ export default class ServerAPI {
     }
   }
 
-  public static async verify(body: AuthHeaders) {
+  async function verifyAuthToken(body: AuthHeaders) {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Verify}`,
@@ -55,7 +59,7 @@ export default class ServerAPI {
     }
   }
 
-  public static async login(body: LoginFields) {
+  async function userLogin(body: LoginFields) {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Login}`,
@@ -63,23 +67,32 @@ export default class ServerAPI {
           ...body,
         }
       );
+      storeToken(response?.data.authToken);
+      authenticateUser();
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
 
-  public static async signUp(body: SignUpFields) {
+  async function userSignUp(body: SignUpFields) {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_API_URL}${Path.SignUp}`,
-        {
-          ...body,
-        }
-      );
-      return response;
+      await axios.post(`${import.meta.env.VITE_BASE_API_URL}${Path.SignUp}`, {
+        ...body,
+      });
+      userLogin(body);
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
-}
+
+  return {
+    fetchRequest,
+    postRequest,
+    verifyAuthToken,
+    userLogin,
+    userSignUp,
+  };
+};
+
+export default useServerAPIv2;
