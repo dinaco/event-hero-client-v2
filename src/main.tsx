@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
@@ -8,8 +8,9 @@ import GlobalStyle from './configurations/styles/GlobalStyles';
 import { AuthProviderWrapper } from './context/auth.context';
 import { theme } from './configurations/styles/Theme';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+const root = createRoot(document.getElementById('root') as HTMLElement);
+root.render(
+  <StrictMode>
     <Router>
       <ThemeProvider theme={theme}>
         <Global styles={GlobalStyle} />
@@ -18,5 +19,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         </AuthProviderWrapper>
       </ThemeProvider>
     </Router>
-  </React.StrictMode>
+  </StrictMode>
 );

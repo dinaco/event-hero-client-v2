@@ -24,7 +24,7 @@ export const useLogin = () => {
       .then(() => {
         setPassword('');
       })
-      .catch((err) => console.error(err.response.data.errorMessage));
+      .catch((err) => console.error(err));
   };
   return {
     email,

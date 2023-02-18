@@ -5,12 +5,8 @@ import NotFound from './components/pages/NotFound';
 import { IsAnon, IsPrivate } from './configurations/authetication/userType';
 import Navbar from './components/organism/Navbar/Navbar';
 import MyAccount from './components/pages/MyAccount';
-import { useContext } from 'react';
-import { AuthContext } from './context/auth.context';
 
 const App = (): JSX.Element => {
-  const { isLoggedIn, user, isLoading } = useContext(AuthContext);
-
   // console.log(isLoggedIn, user, isLoading);
   // TODO: Make login / signup actually work. On signup auto login
 
