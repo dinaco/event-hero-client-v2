@@ -2,6 +2,12 @@ import type { PropsWithChildren } from 'react';
 import { useState, useEffect, createContext } from 'react';
 import useServerAPIv2 from '../configurations/API/ServerAPIv2';
 
+export type UserRoles =
+  | 'customer'
+  | 'app-admin'
+  | 'event-admin'
+  | 'event-staff';
+
 type UserInfo = {
   email: string;
   name: string;
@@ -9,7 +15,7 @@ type UserInfo = {
   balance: number;
   events: string[];
   orders: string[];
-  role: string;
+  role: UserRoles;
   active: boolean;
 };
 

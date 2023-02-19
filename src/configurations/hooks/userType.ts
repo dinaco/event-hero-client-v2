@@ -7,7 +7,9 @@ function IsStaff({ children }: any) {
 
   const navigate = useNavigate();
 
-  if (!isLoggedIn || user?.role !== 'event-staff') {
+  if (!isLoggedIn || !user) navigate('/');
+
+  if (user?.role !== 'event-staff') {
     return navigate('/');
   } else {
     return children;
@@ -67,4 +69,4 @@ function IsAnon({ children }) {
   }
 }
 
-export { IsStaff, IsCustomer, IsAdmin, IsPrivate, IsAnon };
+export { IsStaff, IsCustomer, IsAdmin, IsPrivate, IsAnon, newStuff };

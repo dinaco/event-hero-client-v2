@@ -1,18 +1,16 @@
-import { Route, Routes } from 'react-router-dom';
-import TabbedAuthForm from './components/global/TabbedAuthForm';
 import { ToastContainer } from 'react-toastify';
-import NotFound from './components/pages/NotFound';
-import { IsAnon, IsPrivate } from './configurations/authetication/userType';
-import Navbar from './components/organism/Navbar/Navbar';
-import MyAccount from './components/pages/MyAccount';
+import MainRoutes from './configurations/router/MainRoutes';
 
 const App = (): JSX.Element => {
-  // console.log(isLoggedIn, user, isLoading);
-  // TODO: Make login / signup actually work. On signup auto login
+  //TODO: improve userType logic and routing system
 
   //TODO: Change it to graphQL/Apollo?
 
+  // Check where useeffect, usememo and usecallback are missing. usenavigate should be used inside useeffect?
+
   //FIXME: Fix navbar, split it into logic, static and so on, implement types. Navbar must always be on top of screen
+
+  //FIXME: fix mui errors, my-account and 404 page
 
   // FIXME: layout not fitting entire screen
 
@@ -27,26 +25,7 @@ const App = (): JSX.Element => {
 
   return (
     <>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <IsAnon>
-              <TabbedAuthForm />
-            </IsAnon>
-          }
-        />
-        <Route
-          path='/my-account/'
-          element={
-            <IsPrivate>
-              <Navbar />
-              <MyAccount />
-            </IsPrivate>
-          }
-        />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <MainRoutes />
       <ToastContainer />
     </>
   );
