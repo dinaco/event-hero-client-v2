@@ -55,7 +55,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
   };
 
   const authenticateUser = () => {
-    const storedToken = localStorage.getItem('authToken');
+    const storedToken = getToken();
 
     if (storedToken) {
       verifyAuthToken({
@@ -83,7 +83,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
 
   useEffect(() => {
     authenticateUser();
-  });
+  }, []);
 
   return (
     <AuthContext.Provider
