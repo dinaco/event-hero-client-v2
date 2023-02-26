@@ -83,7 +83,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
 
   useEffect(() => {
     authenticateUser();
-  }, []);
+  });
 
   return (
     <AuthContext.Provider
