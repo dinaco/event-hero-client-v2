@@ -5,19 +5,13 @@ import {
   TextField,
   Button,
   Typography,
-  Link,
   Stack,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import useStyles from './Login.style';
-import type { HandleChangeBetweenForms } from '../TabbedAuthForm.static';
 import { useLogin } from './Login.logic';
 
-export type Props = {
-  handleChange: HandleChangeBetweenForms;
-};
-
-const Login = ({ handleChange }: Props) => {
+const Login = () => {
   const { classes } = useStyles();
   const { email, password, handleEmail, handlePassword, handleSubmit } =
     useLogin();
@@ -57,8 +51,6 @@ const Login = ({ handleChange }: Props) => {
         >
           Sign in
         </Button>
-        <Typography>Do you have an account? </Typography>
-        <Link onClick={(e) => handleChange(e, 1)}>Sign Up</Link>
       </Paper>
     </Grid>
   );

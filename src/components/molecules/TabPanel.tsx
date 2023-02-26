@@ -3,24 +3,24 @@ import { Box } from '@mui/material';
 
 type TabPanelProps = {
   children: ReactNode;
-  tabValue: number;
+  selectedTab: number;
   index: number;
 };
 
 const TabPanel = ({
   children,
-  tabValue,
+  selectedTab,
   index,
   ...other
 }: TabPanelProps): JSX.Element => {
   return (
     <div
       role='tabpanel'
-      hidden={tabValue !== index}
+      hidden={selectedTab !== index}
       id={`tabpanel-${index}`}
       {...other}
     >
-      {tabValue === index && <Box>{children}</Box>}
+      {selectedTab === index && <Box>{children}</Box>}
     </div>
   );
 };

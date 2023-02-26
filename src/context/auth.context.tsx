@@ -26,6 +26,7 @@ type AuthContextType = {
   storeToken: (token: string) => void;
   authenticateUser: () => void;
   logoutUser: () => void;
+  loginUser: (token: string) => void;
   getToken: () => string | null;
 };
 
@@ -50,6 +51,11 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
     authenticateUser();
   };
 
+  const loginUser = (token: string) => {
+    storeToken(token);
+    authenticateUser();
+  };
+
   const getToken = () => {
     return localStorage.getItem('authToken');
   };
@@ -60,7 +66,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
     if (storedToken) {
       verifyAuthToken({
         headers: {
-          Authorization: `Bearer ${storedToken}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       })
         .then((response) => {
@@ -94,6 +100,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
         storeToken,
         authenticateUser,
         logoutUser,
+        loginUser,
         getToken,
       }}
     >

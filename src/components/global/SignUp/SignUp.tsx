@@ -3,21 +3,15 @@ import {
   Paper,
   Avatar,
   Typography,
-  Link,
   TextField,
   Button,
   Stack,
 } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import type { HandleChangeBetweenForms } from '../TabbedAuthForm.static';
 import useStyles from './SignUp.style';
 import { useSignUp } from './SignUp.logic';
 
-type Props = {
-  handleChange: HandleChangeBetweenForms;
-};
-
-const Signup = ({ handleChange }: Props) => {
+const Signup = () => {
   const { classes } = useStyles();
   const {
     name,
@@ -74,10 +68,6 @@ const Signup = ({ handleChange }: Props) => {
         >
           Sign up
         </Button>
-        <Typography>
-          Already a member?{' '}
-          <Link onClick={(e) => handleChange(e, 0)}>Login</Link>
-        </Typography>
       </Paper>
     </Grid>
   );

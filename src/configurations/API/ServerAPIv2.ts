@@ -18,7 +18,7 @@ type AuthHeaders = {
 };
 
 const useServerAPIv2 = () => {
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { authenticateUser, storeToken, loginUser } = useContext(AuthContext);
 
   async function fetchRequest(url: string) {
     try {
@@ -45,12 +45,12 @@ const useServerAPIv2 = () => {
     }
   }
 
-  async function verifyAuthToken(body: AuthHeaders) {
+  async function verifyAuthToken(bearerToken: AuthHeaders) {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Verify}`,
         {
-          ...body,
+          ...bearerToken,
         }
       );
       return response;
@@ -67,8 +67,7 @@ const useServerAPIv2 = () => {
           ...body,
         }
       );
-      storeToken(response?.data.authToken);
-      authenticateUser();
+      loginUser(response?.data.authToken);
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });

@@ -30,7 +30,9 @@ export const useSignUp = () => {
         setPassword('');
         // handleChange(e, 0); use this approach if you want to switch to login tab after sucessful signup
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        throw new Error(err);
+      });
   };
   return {
     name,
