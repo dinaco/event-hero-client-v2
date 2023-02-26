@@ -1,13 +1,29 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import LoadingImg from '../../components/global/atoms/LoadingImg';
 import type { UserRoles } from '../../context/auth.context';
+import SnackBar from '../../utilities/SnackBar';
 import useAuthInfo from '../hooks/AuthInfo';
 
-type AdminUsers = Extract<UserRoles, 'event-admin' | 'app-admin'>;
+/* const UserTypes: Record<UserRoles, JSX.Element> = {
+  customer: <Outlet />,
+  'event-admin': <Navigate to='/admin' />,
+  'event-staff': <Outlet />,
+  'app-admin': <Navigate to='/admin' />,
+}; */
 
-function ProtectedRoutes() {
-  const { isLoggedIn } = useAuthInfo();
-  //if the role required is there or not
-  return isLoggedIn ? <Outlet /> : <Navigate to='/' />;
+function handleFallback() {
+  SnackBar({ message: 'Permission Denied', type: 'error' });
+  return <Navigate to='/' />;
 }
+
+const ProtectedRoutes = ({ rolesRequired }: Record<string, UserRoles[]>) => {
+  const { isLoggedIn, user, isLoading } = useAuthInfo();
+
+  if (isLoading) return <LoadingImg />;
+
+  if (!isLoggedIn || !user) return <Navigate to='/login' />;
+
+  return rolesRequired.includes(user.role) ? <Outlet /> : handleFallback();
+};
 
 export default ProtectedRoutes;

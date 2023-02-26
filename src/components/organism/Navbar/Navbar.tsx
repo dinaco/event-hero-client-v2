@@ -62,14 +62,14 @@ function Navbar() {
                   display: 'block',
                 }}
               >
-                <Link to='/events'>
+                <Link to='/'>
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign='center'>All Events</Typography>
+                    <Typography textAlign='center'>Home Page</Typography>
                   </MenuItem>
                 </Link>
 
                 {!isLoggedIn && (
-                  <Link to='/'>
+                  <Link to='/login'>
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography textAlign='center'>Login</Typography>
                     </MenuItem>
