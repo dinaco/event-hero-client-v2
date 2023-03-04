@@ -1,17 +1,13 @@
 import { Tabs, Tab } from '@mui/material';
-import type { SyntheticEvent } from 'react';
+import useNavTabs from './NavTabs.logic';
+import { textAndIndicatorColor } from './NavTabs.static';
 
-type NavTabProps = {
+export type NavTabProps = {
   selectedTab: number;
-  setSelectedTab: any;
+  setSelectedTab: (newValue: number) => void;
   titles: string[];
   variant?: 'standard' | 'scrollable' | 'fullWidth';
 };
-
-type HandleChangeBetweenForms = (
-  e: SyntheticEvent<Element, Event>,
-  newTabValue: number
-) => void;
 
 function NavTabs({
   selectedTab,
@@ -19,16 +15,13 @@ function NavTabs({
   titles,
   variant,
 }: NavTabProps) {
-  const handleChange: HandleChangeBetweenForms = (e, newTabValue) => {
-    e.preventDefault();
-    setSelectedTab(newTabValue);
-  };
+  const { handleChange } = useNavTabs({ setSelectedTab });
 
   return (
     <Tabs
       value={selectedTab}
-      indicatorColor='primary'
-      textColor='primary'
+      indicatorColor={textAndIndicatorColor}
+      textColor={textAndIndicatorColor}
       onChange={handleChange}
       variant={variant}
     >

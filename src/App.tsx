@@ -2,6 +2,16 @@ import { ToastContainer } from 'react-toastify';
 import MainRoutes from './configurations/router/MainRoutes';
 
 const App = (): JSX.Element => {
+  {
+    /* <ListButton
+          {...entityInformation.optionProps}
+          rightIcon={
+            <Checkbox
+              onChange={() => onClick(CatalogTableCommonColumns.EntityInformation)}
+              checked={entityInformation.settings.show}
+            /> */
+  }
+
   //TODO: Check where useeffect, usememo and usecallback are missing. usenavigate should be used inside useeffect?
 
   //FIXME: Fix navbar, split it into logic, static and so on, implement types. Navbar must always be on top of screen

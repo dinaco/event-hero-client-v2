@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { Paper } from '@mui/material';
 import Login from './Login/Login';
 import Signup from './SignUp/SignUp';
-import NavTabs from '../molecules/NavTabs';
+import NavTabs from '../molecules/NavTabs/NavTabs';
 import TabPanel from '../molecules/TabPanel';
+import { tabTitles } from './TabbedAuthForm.static';
 
 const TabbedAuthForm = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
-  const titles = ['Sign In', 'Sign Up'];
 
   return (
     <Paper>
       <NavTabs
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
-        titles={titles}
+        titles={tabTitles}
         variant={'fullWidth'}
       />
       <TabPanel selectedTab={selectedTab} index={0}>

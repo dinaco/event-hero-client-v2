@@ -5,6 +5,7 @@ type TabPanelProps = {
   children: ReactNode;
   selectedTab: number;
   index: number;
+  [other: string | number | symbol]: unknown;
 };
 
 const TabPanel = ({
