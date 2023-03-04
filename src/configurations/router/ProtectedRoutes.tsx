@@ -4,7 +4,6 @@ import LoadingImg from '../../components/global/atoms/LoadingImg';
 import { AuthContext } from '../../context/auth.context';
 import type { UserRoles } from '../../context/auth.context';
 import SnackBar from '../../utilities/SnackBar';
-import useAuthInfo from '../hooks/AuthInfo';
 
 /* const UserTypes: Record<UserRoles, JSX.Element> = {
   customer: <Outlet />,

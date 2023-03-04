@@ -15,14 +15,14 @@ function NavTabs({
   titles,
   variant,
 }: NavTabProps) {
-  const { handleChange } = useNavTabs({ setSelectedTab });
+  const { handleTabSwitch } = useNavTabs({ selectedTab, setSelectedTab });
 
   return (
     <Tabs
       value={selectedTab}
       indicatorColor={textAndIndicatorColor}
       textColor={textAndIndicatorColor}
-      onChange={handleChange}
+      onChange={handleTabSwitch}
       variant={variant}
     >
       {titles.map((title, index) => (

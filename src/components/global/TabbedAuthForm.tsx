@@ -4,10 +4,10 @@ import Login from './Login/Login';
 import Signup from './SignUp/SignUp';
 import NavTabs from '../molecules/NavTabs/NavTabs';
 import TabPanel from '../molecules/TabPanel';
-import { tabTitles } from './TabbedAuthForm.static';
+import { tabIndex, tabTitles, tabVariant } from './TabbedAuthForm.static';
 
 const TabbedAuthForm = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState<number>(tabIndex[0]);
 
   return (
     <Paper>
@@ -15,12 +15,12 @@ const TabbedAuthForm = () => {
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
         titles={tabTitles}
-        variant={'fullWidth'}
+        variant={tabVariant}
       />
-      <TabPanel selectedTab={selectedTab} index={0}>
+      <TabPanel selectedTab={selectedTab} index={tabIndex[0]}>
         <Login />
       </TabPanel>
-      <TabPanel selectedTab={selectedTab} index={1}>
+      <TabPanel selectedTab={selectedTab} index={tabIndex[1]}>
         <Signup />
       </TabPanel>
     </Paper>
