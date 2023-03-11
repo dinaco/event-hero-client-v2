@@ -21,6 +21,7 @@ import dayjs from 'dayjs';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { Event } from '../../utilities/GlobalTypes';
+import EventActions from '../molecules/EventActions';
 
 type EventCardProps = {
   key?: number | string;
@@ -77,9 +78,7 @@ function EventCard({ eventInfo }: EventCardProps) {
                 </AvatarGroup>
               )}
             </Stack>
-            {/*             {user && eventInfo && (
-              <EventActions user={user} event={eventInfo} />
-            )} */}
+            {eventInfo && <EventActions event={eventInfo} />}
           </Box>
           <Divider />
           <Stack

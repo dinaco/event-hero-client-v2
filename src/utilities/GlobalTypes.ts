@@ -16,7 +16,7 @@ export type Event = {
   orders: string[];
   products: string[];
   splashImg: string;
-  staff: string[];
+  staff: UserInfo[];
   takeOrders: boolean;
   updatedAt: string;
   description: string;
