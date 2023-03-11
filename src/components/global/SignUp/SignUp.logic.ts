@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useServerAPIv2 from '../../../configurations/API/ServerAPIv2';
+import useServerAPI from '../../../configurations/API/ServerAPI';
 import type {
   HandleChangeAuthForm,
   HandleClickAuthForm,
@@ -15,7 +15,7 @@ export const useSignUp = () => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const { userSignUp } = useServerAPIv2();
+  const { userSignUp } = useServerAPI();
 
   const handleEmail = (e: HandleChangeAuthForm) => setEmail(e.target.value);
   const handleName = (e: HandleChangeAuthForm) => setName(e.target.value);

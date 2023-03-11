@@ -1,6 +1,8 @@
 import axios from 'axios';
+import { useContext } from 'react';
 import type { LoginFields } from '../../components/global/Login/Login.logic';
 import type { SignUpFields } from '../../components/global/SignUp/SignUp.logic';
+import { AuthContext } from '../../context/auth.context';
 import SnackBar from '../../utilities/SnackBar';
 
 enum Path {
@@ -15,11 +17,22 @@ type AuthHeaders = {
   };
 };
 
-export default class ServerAPI {
-  public static async get(url: string) {
+const useServerAPI = () => {
+  const { loginUser } = useContext(AuthContext);
+
+  const getAuthToken = localStorage.getItem('authToken');
+
+  const bearerToken = {
+    headers: {
+      Authorization: `Bearer ${getAuthToken}`,
+    },
+  };
+
+  async function fetchRequest(url: string) {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_API_URL}${url}`
+        `${import.meta.env.VITE_BASE_API_URL}${url}`,
+        bearerToken
       );
       return response;
     } catch (error: any) {
@@ -27,13 +40,12 @@ export default class ServerAPI {
     }
   }
 
-  public static async post<T>(url: string, body: T) {
+  async function postRequest<T>(url: string, body: T) {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
-        {
-          ...body,
-        }
+        body,
+        bearerToken
       );
       return response;
     } catch (error: any) {
@@ -41,13 +53,24 @@ export default class ServerAPI {
     }
   }
 
-  public static async verify(body: AuthHeaders) {
+  async function putRequest<T>(url: string, body: T) {
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_BASE_API_URL}${url}`,
+        body,
+        bearerToken
+      );
+      return response;
+    } catch (error: any) {
+      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    }
+  }
+
+  async function verifyAuthToken(bearerToken: AuthHeaders) {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Verify}`,
-        {
-          ...body,
-        }
+        bearerToken
       );
       return response;
     } catch (error: any) {
@@ -55,31 +78,39 @@ export default class ServerAPI {
     }
   }
 
-  public static async login(body: LoginFields) {
+  async function userLogin(body: LoginFields) {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Login}`,
-        {
-          ...body,
-        }
+        body
       );
+      loginUser(response?.data.authToken);
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
 
-  public static async signUp(body: SignUpFields) {
+  async function userSignUp(body: SignUpFields) {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${Path.SignUp}`,
-        {
-          ...body,
-        }
+        body
       );
-      return response;
+      userLogin(body);
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
     }
   }
-}
+
+  return {
+    fetchRequest,
+    postRequest,
+    putRequest,
+    verifyAuthToken,
+    userLogin,
+    userSignUp,
+  };
+};
+
+export default useServerAPI;

@@ -6,12 +6,13 @@ import type { Event } from '../../../utilities/GlobalTypes';
 function OrderListButton({ event }: Record<string, Event>) {
   const navigate = useNavigate();
 
-  const navigateTo = () => {
-    navigate(`/orders/${event.id}`);
-  };
-
   return (
-    <Fab color='primary' variant='extended' onClick={navigateTo} size='large'>
+    <Fab
+      color='primary'
+      variant='extended'
+      onClick={() => navigate(`/orders/${event.id}`)}
+      size='large'
+    >
       <FormatListBulletedIcon sx={{ mr: 1 }} />
       Orders
     </Fab>

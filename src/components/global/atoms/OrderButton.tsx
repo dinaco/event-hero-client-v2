@@ -5,12 +5,13 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 function OrderButton() {
   const navigate = useNavigate();
 
-  const navigateTo = () => {
-    navigate('order/');
-  };
-
   return (
-    <Fab color='primary' variant='extended' onClick={navigateTo} size='large'>
+    <Fab
+      color='primary'
+      variant='extended'
+      onClick={() => navigate('order/')}
+      size='large'
+    >
       <AttachMoneyIcon />
       Order
     </Fab>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import useServerAPIv2 from '../../../configurations/API/ServerAPIv2';
+import useServerAPI from '../../../configurations/API/ServerAPI';
 import type { UserInfo } from '../../../utilities/GlobalTypes';
 
 function useMyAccount() {
   const [userInfo, setUserInfo] = useState<UserInfo>();
 
-  const { fetchRequest } = useServerAPIv2();
+  const { fetchRequest } = useServerAPI();
 
   useEffect(() => {
     fetchRequest('/api/my-events')

@@ -4,14 +4,14 @@ import type {
   HandleClickAuthForm,
 } from '../TabbedAuthForm.static';
 import type { SignUpFields } from '../SignUp/SignUp.logic';
-import useServerAPIv2 from '../../../configurations/API/ServerAPIv2';
+import useServerAPI from '../../../configurations/API/ServerAPI';
 
 export type LoginFields = Pick<SignUpFields, 'email' | 'password'>;
 
 export const useLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { userLogin } = useServerAPIv2();
+  const { userLogin } = useServerAPI();
 
   const handleEmail = (e: HandleChangeAuthForm) => setEmail(e.target.value);
   const handlePassword = (e: HandleChangeAuthForm) =>

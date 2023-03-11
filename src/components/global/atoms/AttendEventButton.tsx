@@ -1,10 +1,7 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../../context/auth.context';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Fab } from '@mui/material';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import type { Event } from '../../../utilities/GlobalTypes';
+import useAttendEventButton from './AttendEventButton.logic';
 
 type Props = {
   attending: boolean;
@@ -13,34 +10,16 @@ type Props = {
 };
 
 function AttendEventButton({ attending, setAttending, event }: Props) {
-  const navigate = useNavigate();
-
-  const { user } = useContext(AuthContext);
-
-  const changeAttendingStatus = () => {
-    if (user) {
-      const body = { attending };
-      const getToken = localStorage.getItem('authToken');
-      axios
-        .put(`${process.env.VITE_BASE_URL}/api/event/${event.id}`, body, {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        })
-        .then((response) => {
-          setAttending(!attending);
-          navigate(`/event/${event.id}`);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      navigate(`/`);
-    }
-  };
-
   /*   const AttendEventToggle = () => {
     setAttending(!attending);
     changeAttendingStatus();
   }; */
+
+  const { changeAttendingStatus } = useAttendEventButton({
+    attending,
+    setAttending,
+    event,
+  });
 
   return (
     <Fab

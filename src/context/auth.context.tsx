@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useState, useEffect, createContext } from 'react';
-import useServerAPIv2 from '../configurations/API/ServerAPIv2';
+import useServerAPI from '../configurations/API/ServerAPI';
 import type { UserInfo } from '../utilities/GlobalTypes';
 
 type AuthContextType = {
@@ -20,7 +20,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<AuthContextType['user']>(undefined);
-  const { verifyAuthToken } = useServerAPIv2();
+  const { verifyAuthToken } = useServerAPI();
 
   const storeToken = (token: string) => {
     localStorage.setItem('authToken', token);

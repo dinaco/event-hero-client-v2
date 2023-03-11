@@ -12,13 +12,17 @@ const App = (): JSX.Element => {
             /> */
   }
 
+  //TODO: useMemo or usecallback on attending button?
+
+  //TODO: Create smaller components for myaccount children
+
+  //TODO: add Event List to homepage
+
   //TODO: Check where useeffect, usememo and usecallback are missing. usenavigate should be used inside useeffect?
 
   //FIXME: Fix navbar, split it into logic, static and so on, implement types. Navbar must always be on top of screen
 
   //FIXME: fix mui errors, my-account and 404 page
-
-  //TODO: add Event List to homepage
 
   // FIXME: layout not fitting entire screen
 
