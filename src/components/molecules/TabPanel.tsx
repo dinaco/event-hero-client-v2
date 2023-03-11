@@ -13,16 +13,16 @@ const TabPanel = ({
   selectedTab,
   index,
   ...other
-}: TabPanelProps): JSX.Element => {
+}: TabPanelProps) => {
   return (
-    <div
+    <Box
       role='tabpanel'
       hidden={selectedTab !== index}
       id={`tabpanel-${index}`}
       {...other}
     >
-      {selectedTab === index && <Box>{children}</Box>}
-    </div>
+      {selectedTab === index && children}
+    </Box>
   );
 };
 
