@@ -5,7 +5,7 @@ import PublicRoutes from './PublicRoutes';
 
 import TabbedAuthForm from '../../components/global/TabbedAuthForm';
 import Navbar from '../../components/organism/Navbar/Navbar';
-import MyAccount from '../../components/pages/MyAccount';
+import MyAccount from '../../components/pages/MyAccount/MyAccount';
 import NotFound from '../../components/pages/NotFound';
 import EventList from '../../components/pages/EventList';
 import AdminPage from '../../components/admin/AdminPage';

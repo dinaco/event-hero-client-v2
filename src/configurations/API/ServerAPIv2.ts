@@ -20,11 +20,11 @@ type AuthHeaders = {
 const useServerAPIv2 = () => {
   const { loginUser } = useContext(AuthContext);
 
-  const getToken = localStorage.getItem('authToken');
+  const getAuthToken = localStorage.getItem('authToken');
 
   const bearerToken = {
     headers: {
-      Authorization: `Bearer ${getToken}`,
+      Authorization: `Bearer ${getAuthToken}`,
     },
   };
 

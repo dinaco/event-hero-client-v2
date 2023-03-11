@@ -50,7 +50,7 @@ function EventsList({ selectedTab, userEvents }: Props) {
 
   if (!eventInfo[selectedTab].events.length) {
     return (
-      <Typography variant='body1'>
+      <Typography>
         {eventInfo[selectedTab].text}
         <Link to={`/`}>Check out our events!</Link>
       </Typography>
