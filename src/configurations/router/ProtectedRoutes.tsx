@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import LoadingImg from '../../components/global/atoms/LoadingImg';
 import { AuthContext } from '../../context/auth.context';
-import type { UserRoles } from '../../context/auth.context';
+import type { UserRoles } from '../../utilities/GlobalTypes';
 import SnackBar from '../../utilities/SnackBar';
 
 /* const UserTypes: Record<UserRoles, JSX.Element> = {

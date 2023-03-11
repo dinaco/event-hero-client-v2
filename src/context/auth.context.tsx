@@ -1,23 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import { useState, useEffect, createContext } from 'react';
 import useServerAPIv2 from '../configurations/API/ServerAPIv2';
-
-export type UserRoles =
-  | 'customer'
-  | 'app-admin'
-  | 'event-admin'
-  | 'event-staff';
-
-type UserInfo = {
-  email: string;
-  name: string;
-  profileImg?: string;
-  balance: number;
-  events: string[];
-  orders: string[];
-  role: UserRoles;
-  active: boolean;
-};
+import type { UserInfo } from '../utilities/GlobalTypes';
 
 type AuthContextType = {
   isLoggedIn: boolean;
@@ -66,7 +50,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
     if (storedToken) {
       verifyAuthToken({
         headers: {
-          Authorization: `Bearer ${getToken()}`,
+          Authorization: `Bearer ${storedToken}`,
         },
       })
         .then((response) => {

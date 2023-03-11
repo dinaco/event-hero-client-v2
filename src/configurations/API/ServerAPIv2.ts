@@ -18,12 +18,21 @@ type AuthHeaders = {
 };
 
 const useServerAPIv2 = () => {
-  const { authenticateUser, storeToken, loginUser } = useContext(AuthContext);
+  const { loginUser } = useContext(AuthContext);
+
+  const getToken = localStorage.getItem('authToken');
+
+  const bearerToken = {
+    headers: {
+      Authorization: `Bearer ${getToken}`,
+    },
+  };
 
   async function fetchRequest(url: string) {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BASE_API_URL}${url}`
+        `${import.meta.env.VITE_BASE_API_URL}${url}`,
+        bearerToken
       );
       return response;
     } catch (error: any) {

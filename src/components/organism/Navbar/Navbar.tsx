@@ -118,7 +118,7 @@ function Navbar() {
                   onClose={handleCloseUserMenu}
                 >
                   {isLoggedIn && (
-                    <>
+                    <div>
                       <Link to='/my-account'>
                         <MenuItem onClick={handleCloseUserMenu}>
                           <Typography textAlign='center'>My Account</Typography>
@@ -129,7 +129,7 @@ function Navbar() {
                           <Typography textAlign='center'>Profile</Typography>
                         </MenuItem>
                       </Link>
-                    </>
+                    </div>
                   )}
                   {isLoggedIn && user?.role === 'customer' && (
                     <Link to='/add-funds'>

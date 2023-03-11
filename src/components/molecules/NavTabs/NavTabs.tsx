@@ -13,7 +13,7 @@ function NavTabs({
   selectedTab,
   setSelectedTab,
   titles,
-  variant,
+  variant = 'fullWidth',
 }: NavTabProps) {
   const { handleTabSwitch } = useNavTabs({ selectedTab, setSelectedTab });
 
