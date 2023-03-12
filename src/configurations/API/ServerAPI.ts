@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useContext } from 'react';
-import type { LoginFields } from '../../components/global/Login/Login.logic';
+import type { LoginFields } from '../../components/pages/Auth/Login/Login.logic';
 import type { SignUpFields } from '../../components/global/SignUp/SignUp.logic';
 import { AuthContext } from '../../context/auth.context';
 import SnackBar from '../../utilities/SnackBar';

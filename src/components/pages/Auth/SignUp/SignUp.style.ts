@@ -1,5 +1,5 @@
 import { makeStyles } from 'tss-react/mui';
-import { theme } from '../../../configurations/styles/Theme';
+import { theme } from '../../../../configurations/styles/Theme';
 
 const useStyles = makeStyles()({
   container: {

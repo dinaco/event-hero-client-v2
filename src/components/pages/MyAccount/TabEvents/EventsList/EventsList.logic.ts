@@ -1,10 +1,11 @@
 import dayjs from 'dayjs';
-import type { Event } from '../../../utilities/GlobalTypes';
+import type { Event } from '../../../../../utilities/GlobalTypes';
+import { localText } from './EventsList.static';
 
 type EventInfo = {
   [key: number]: {
     events: Event[];
-    text: string;
+    noEventsText: string;
   };
 };
 
@@ -28,15 +29,15 @@ function useEventsList({ userEvents }: Record<string, Event[]>) {
   const eventInfo: EventInfo = {
     0: {
       events: todaysEvents,
-      text: 'No events going on today.',
+      noEventsText: localText.noTodaysEvents,
     },
     1: {
       events: upcomingEvents,
-      text: 'No upcoming events.',
+      noEventsText: localText.noUpcomingEvents,
     },
     2: {
       events: pastEvents,
-      text: "You haven't been in any events yet.",
+      noEventsText: localText.noPastEvents,
     },
   };
 

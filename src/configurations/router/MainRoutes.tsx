@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProtectedRoutes from './ProtectedRoutes';
 import PublicRoutes from './PublicRoutes';
 
-import TabbedAuthForm from '../../components/global/TabbedAuthForm';
+import TabbedAuthForm from '../../components/pages/Auth/TabbedAuthForm';
 import Navbar from '../../components/organism/Navbar/Navbar';
 import MyAccount from '../../components/pages/MyAccount/MyAccount';
 import NotFound from '../../components/pages/NotFound';

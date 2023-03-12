@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Paper } from '@mui/material';
 import Login from './Login/Login';
 import Signup from './SignUp/SignUp';
-import NavTabs from '../molecules/NavTabs/NavTabs';
-import TabPanel from '../molecules/TabPanel';
+import NavTabs from '../../molecules/NavTabs/NavTabs';
+import TabPanel from '../../molecules/TabPanel';
 import { tabIndex, tabTitles } from './TabbedAuthForm.static';
 
 const TabbedAuthForm = () => {

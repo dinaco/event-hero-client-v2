@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Typography } from '@mui/material';
-import EventCard from '../../organism/EventCard';
-import type { Event } from '../../../utilities/GlobalTypes';
+import EventCard from '../../../../organism/EventCard';
+import type { Event } from '../../../../../utilities/GlobalTypes';
 import useEventsList from './EventsList.logic';
 
 type Props = {
@@ -15,7 +15,7 @@ function EventsList({ selectedTab, userEvents }: Props) {
   if (!eventInfo[selectedTab].events.length) {
     return (
       <Typography>
-        {eventInfo[selectedTab].text}
+        {eventInfo[selectedTab].noEventsText}
         <Link to={`/`}>Check out our events!</Link>
       </Typography>
     );

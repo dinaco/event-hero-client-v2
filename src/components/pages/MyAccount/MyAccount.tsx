@@ -1,7 +1,7 @@
 import { Paper, Typography, Stack } from '@mui/material';
 import LoadingImg from '../../global/atoms/LoadingImg';
 import Balance from '../../molecules/Balance';
-import TabEvents from '../../molecules/TabEvents';
+import TabEvents from './TabEvents/TabEvents';
 import useMyAccount from './MyAccount.logic';
 
 function MyAccount() {

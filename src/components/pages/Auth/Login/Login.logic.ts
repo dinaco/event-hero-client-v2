@@ -4,7 +4,7 @@ import type {
   HandleClickAuthForm,
 } from '../TabbedAuthForm.static';
 import type { SignUpFields } from '../SignUp/SignUp.logic';
-import useServerAPI from '../../../configurations/API/ServerAPI';
+import useServerAPI from '../../../../configurations/API/ServerAPI';
 
 export type LoginFields = Pick<SignUpFields, 'email' | 'password'>;
 

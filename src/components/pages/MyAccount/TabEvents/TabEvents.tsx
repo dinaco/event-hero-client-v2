@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Paper } from '@mui/material';
-import TabPanel from './TabPanel';
-import NavTabs from './NavTabs/NavTabs';
+import TabPanel from '../../../molecules/TabPanel';
+import NavTabs from '../../../molecules/NavTabs/NavTabs';
 import EventsList from './EventsList/EventsList';
-import type { Event } from '../../utilities/GlobalTypes';
+import type { Event } from '../../../../utilities/GlobalTypes';
 
 const TabEvents = ({ userEvents }: Record<string, Event[]>) => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
