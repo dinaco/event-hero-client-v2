@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import useServerAPI from '../../../../configurations/API/ServerAPI';
+import type { Event } from '../../../../utilities/GlobalTypes';
 
 const useSearchEvents = () => {
-  const [userEvents, setUserEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [searchEvents, setSearchEvents] = useState<string>('');
 
   const { isLoading, fetchRequest } = useServerAPI();
@@ -10,7 +11,7 @@ const useSearchEvents = () => {
   useEffect(() => {
     fetchRequest(`/api/events?q=${searchEvents}`)
       .then((response) => {
-        setUserEvents(response?.data);
+        setEvents(response?.data);
       })
       .catch((err) => {
         throw new Error(err);
@@ -19,7 +20,7 @@ const useSearchEvents = () => {
 
   return {
     isLoading,
-    userEvents,
+    events,
     searchEvents,
     setSearchEvents,
   };
