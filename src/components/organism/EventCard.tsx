@@ -15,8 +15,6 @@ import {
   CardActions,
   CardContent,
 } from '@mui/material';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { grey } from '@mui/material/colors';
 import dayjs from 'dayjs';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -45,15 +43,11 @@ function EventCard({ eventInfo }: EventCardProps) {
           alt={eventInfo.name}
         />
       </Link>
-      <Box sx={{ p: 2 }}>
+      <Stack sx={{ p: 2 }}>
         <Stack
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-          spacing={0.5}
+          direction='row'
+          justifyContent='space-between'
+          alignItems='center'
         >
           <Link to={`/event/${eventInfo.id}`}>
             <Typography variant='h5' fontWeight={700}>
@@ -73,13 +67,12 @@ function EventCard({ eventInfo }: EventCardProps) {
           )}
         </Stack>
         {eventInfo && <EventActions event={eventInfo} />}
-      </Box>
+      </Stack>
       <Divider />
       <Stack
         direction='row'
-        alignItems='center'
         justifyContent='space-between'
-        sx={{ px: 2, py: 1, bgcolor: 'background.default' }}
+        sx={{ px: 2, py: 1 }}
       >
         <Chip
           icon={<CalendarMonthIcon />}
@@ -88,15 +81,15 @@ function EventCard({ eventInfo }: EventCardProps) {
         <LocationTag {...eventInfo.location} />
       </Stack>
       <Divider />
-      <CardActions onClick={() => setExpanded(!expanded)} disableSpacing>
+      <CardActions onClick={() => setExpanded(!expanded)}>
         <Typography>Event Details</Typography>
         <IconButton aria-expanded={expanded} aria-label='show more'>
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
+      <Collapse in={expanded}>
         <CardContent>
-          <Typography paragraph>{eventInfo.description}</Typography>
+          <Typography>{eventInfo.description}</Typography>
         </CardContent>
       </Collapse>
     </Card>
