@@ -3,5 +3,5 @@ export const localText = {
   noUpcomingEvents: 'No upcoming events.',
   noPastEvents: "You haven't been in any events yet.",
   noAllAvailableFutureEvents:
-    "Sorry, we don't have any events coming up in the near future.",
+    "Sorry, we couldn't find any events for your search.",
 };

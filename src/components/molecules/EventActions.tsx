@@ -34,10 +34,12 @@ function EventActions({ user, event }: Props) {
           attending={attending}
         />
       )}
-      {user?.role === 'customer' && event.takeOrders && attending && (
-        <OrderButton />
+      {user?.role === 'customer' && attending && (
+        <OrderButton disabled={!event.takeOrders} />
       )}
-      {attending && <OrderListButton event={event} />}
+      {attending && (
+        <OrderListButton event={event} disabled={!event.orders.length} />
+      )}
     </Stack>
   );
 }

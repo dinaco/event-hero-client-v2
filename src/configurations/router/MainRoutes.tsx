@@ -7,7 +7,7 @@ import TabbedAuthForm from '../../components/pages/Auth/TabbedAuthForm';
 import Navbar from '../../components/organism/Navbar/Navbar';
 import MyAccount from '../../components/pages/MyAccount/MyAccount';
 import NotFound from '../../components/pages/NotFound';
-import EventList from '../../components/pages/Home/EventList';
+import SearchEvents from '../../components/pages/Home/SearchEvents/SearchEvents';
 import AdminPage from '../../components/admin/AdminPage';
 
 const MainRoutes = () => (
@@ -15,7 +15,7 @@ const MainRoutes = () => (
     {/** Public Routes */}
     {/** Wrap all Route under PublicRoutes element */}
     <Route path='/' element={<Navbar />}>
-      <Route path='/' element={<EventList />} />
+      <Route path='/' element={<SearchEvents />} />
       <Route path='/login' element={<PublicRoutes />}>
         <Route path='/login' element={<TabbedAuthForm />} />
       </Route>

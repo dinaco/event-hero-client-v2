@@ -3,11 +3,17 @@ import { Fab } from '@mui/material';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import type { Event } from '../../../utilities/GlobalTypes';
 
-function OrderListButton({ event }: Record<string, Event>) {
+type Props = {
+  disabled: boolean;
+  event: Event;
+};
+
+function OrderListButton({ disabled, event }: Props) {
   const navigate = useNavigate();
 
   return (
     <Fab
+      disabled={disabled}
       color='primary'
       variant='extended'
       onClick={() => navigate(`/orders/${event.id}`)}
