@@ -22,6 +22,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { Event } from '../../utilities/GlobalTypes';
 import EventActions from '../molecules/EventActions';
+import LocationTag from '../global/atoms/LocationTag/LocationTag';
 
 type EventCardProps = {
   key?: number | string;
@@ -84,10 +85,7 @@ function EventCard({ eventInfo }: EventCardProps) {
           icon={<CalendarMonthIcon />}
           label={dayjs(eventInfo.date).format('DD/MM/YYYY')}
         />
-        <Typography variant='body2' color='text.secondary'>
-          <LocationOnIcon sx={{ color: grey[500] }} /> {eventInfo.location.city}
-          , {eventInfo.location.state} - {eventInfo.location.country}
-        </Typography>
+        <LocationTag {...eventInfo.location} />
       </Stack>
       <Divider />
       <CardActions onClick={() => setExpanded(!expanded)} disableSpacing>
