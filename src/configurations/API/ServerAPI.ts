@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import type { LoginFields } from '../../components/pages/Auth/Login/Login.logic';
-import type { SignUpFields } from '../../components/global/SignUp/SignUp.logic';
+import type { SignUpFields } from '../../components/pages/Auth/SignUp/SignUp.logic';
 import { AuthContext } from '../../context/auth.context';
 import SnackBar from '../../utilities/SnackBar';
 
@@ -18,6 +18,7 @@ type AuthHeaders = {
 };
 
 const useServerAPI = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const { loginUser } = useContext(AuthContext);
 
   const getAuthToken = localStorage.getItem('authToken');
@@ -37,6 +38,8 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -50,6 +53,8 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -63,6 +68,8 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -75,6 +82,8 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -88,6 +97,8 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -100,10 +111,13 @@ const useServerAPI = () => {
       userLogin(body);
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+    } finally {
+      setIsLoading(false);
     }
   }
 
   return {
+    isLoading,
     fetchRequest,
     postRequest,
     putRequest,

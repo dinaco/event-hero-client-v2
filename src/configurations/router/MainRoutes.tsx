@@ -7,7 +7,7 @@ import TabbedAuthForm from '../../components/pages/Auth/TabbedAuthForm';
 import Navbar from '../../components/organism/Navbar/Navbar';
 import MyAccount from '../../components/pages/MyAccount/MyAccount';
 import NotFound from '../../components/pages/NotFound';
-import EventList from '../../components/pages/EventList';
+import EventList from '../../components/pages/Home/EventList';
 import AdminPage from '../../components/admin/AdminPage';
 
 const MainRoutes = () => (

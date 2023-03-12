@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import type { Event } from '../../../../../utilities/GlobalTypes';
+import type { Event } from '../../../utilities/GlobalTypes';
 import { localText } from './EventsList.static';
 
 type EventInfo = {
@@ -26,6 +26,8 @@ function useEventsList({ userEvents }: Record<string, Event[]>) {
     todayDate.isAfter(event.date.split('T')[0])
   );
 
+  const allAvailableFutureEvents = userEvents;
+
   const eventInfo: EventInfo = {
     0: {
       events: todaysEvents,
@@ -38,6 +40,10 @@ function useEventsList({ userEvents }: Record<string, Event[]>) {
     2: {
       events: pastEvents,
       noEventsText: localText.noPastEvents,
+    },
+    3: {
+      events: allAvailableFutureEvents,
+      noEventsText: localText.noAllAvailableFutureEvents,
     },
   };
 

@@ -1,14 +1,16 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Stack } from '@mui/material';
 import AttendEventButton from '../global/atoms/AttendEventButton';
-import { AuthContext } from '../../context/auth.context';
-import type { Event } from '../../utilities/GlobalTypes';
+import type { Event, UserInfo } from '../../utilities/GlobalTypes';
 import OrderButton from '../global/atoms/OrderButton';
 import OrderListButton from '../global/atoms/OrderListButton';
 
-function EventActions({ event }: Record<string, Event>) {
-  const { user } = useContext(AuthContext);
+type Props = {
+  user: UserInfo;
+  event: Event;
+};
 
+function EventActions({ user, event }: Props) {
   const [attending, setAttending] = useState<boolean>(
     event.customers.some((customer) => customer.id === user?.id) ||
       event.staff.some((staff) => staff.id === user?.id)

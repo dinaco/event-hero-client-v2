@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Paper } from '@mui/material';
 import TabPanel from '../../../molecules/TabPanel';
 import NavTabs from '../../../molecules/NavTabs/NavTabs';
-import EventsList from './EventsList/EventsList';
+import EventsList from '../../../organism/EventsList/EventsList';
 import type { Event } from '../../../../utilities/GlobalTypes';
 
 const TabEvents = ({ userEvents }: Record<string, Event[]>) => {

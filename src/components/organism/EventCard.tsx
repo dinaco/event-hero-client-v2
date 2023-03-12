@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Typography,
   Card,
-  Box,
   Stack,
   Divider,
   Chip,
@@ -21,6 +20,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { Event } from '../../utilities/GlobalTypes';
 import EventActions from '../molecules/EventActions';
 import LocationTag from '../global/atoms/LocationTag/LocationTag';
+import { AuthContext } from '../../context/auth.context';
 
 type EventCardProps = {
   key?: number | string;
@@ -29,6 +29,8 @@ type EventCardProps = {
 
 function EventCard({ eventInfo }: EventCardProps) {
   const [expanded, setExpanded] = useState(false);
+
+  const { user } = useContext(AuthContext);
 
   if (!eventInfo || !eventInfo.active) {
     return <Typography variant='h2'>We could not find this event!</Typography>;
@@ -66,7 +68,7 @@ function EventCard({ eventInfo }: EventCardProps) {
             </AvatarGroup>
           )}
         </Stack>
-        {eventInfo && <EventActions event={eventInfo} />}
+        {user && eventInfo && <EventActions user={user} event={eventInfo} />}
       </Stack>
       <Divider />
       <Stack

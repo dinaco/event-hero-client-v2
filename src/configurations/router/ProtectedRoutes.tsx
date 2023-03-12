@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import LoadingImg from '../../components/global/atoms/LoadingImg';
 import { AuthContext } from '../../context/auth.context';
 import type { UserRoles } from '../../utilities/GlobalTypes';
 import SnackBar from '../../utilities/SnackBar';
@@ -18,9 +17,7 @@ function handleFallback() {
 }
 
 const ProtectedRoutes = ({ rolesRequired }: Record<string, UserRoles[]>) => {
-  const { isLoggedIn, user, isLoading } = useContext(AuthContext);
-
-  if (isLoading) return <LoadingImg />;
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   if (!isLoggedIn || !user) return <Navigate to='/login' />;
 

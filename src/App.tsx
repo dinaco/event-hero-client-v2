@@ -16,8 +16,6 @@ const App = (): JSX.Element => {
 
   //TODO: useMemo or usecallback on attending button?
 
-  //TODO: Create smaller components for myaccount children
-
   //TODO: create makestyles/usestyles for myaccount children and check the rest, use login and signup as reference
 
   //TODO: add Event List to homepage
