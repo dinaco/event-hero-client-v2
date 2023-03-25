@@ -24,7 +24,7 @@ function EventsList({ selectedTab, userEvents }: Props) {
   return (
     <>
       {eventInfo[selectedTab].events.map((event) => (
-        <EventCard key={event.id} eventInfo={event} />
+        <EventCard key={event.id} {...event} />
       ))}
     </>
   );

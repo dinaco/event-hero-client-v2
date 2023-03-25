@@ -2,17 +2,21 @@ import useServerAPI from '../../../configurations/API/ServerAPI';
 import type { Event } from '../../../utilities/GlobalTypes';
 import SnackBar from '../../../utilities/SnackBar';
 
-type Props = {
+export type AttendingEventProps = {
   attending: boolean;
   setAttending: (attending: boolean) => void;
-  event: Event;
-};
+} & Pick<Event, 'orders' | 'id'>;
 
-function useAttendEventButton({ attending, setAttending, event }: Props) {
+function useAttendEventButton({
+  attending,
+  setAttending,
+  orders,
+  id,
+}: AttendingEventProps) {
   const { putRequest } = useServerAPI();
 
   const changeAttendingStatus = () => {
-    if (event.orders.length) {
+    if (orders.length) {
       SnackBar({
         message: `You can't unattend from an event that you placed orders`,
       });
@@ -20,7 +24,7 @@ function useAttendEventButton({ attending, setAttending, event }: Props) {
     }
 
     const body = { attending };
-    putRequest(`/api/event/${event.id}`, body)
+    putRequest(`/api/event/${id}`, body)
       .then(() => {
         setAttending(!attending);
       })

@@ -22,28 +22,44 @@ import EventActions from '../molecules/EventActions';
 import LocationTag from '../global/atoms/LocationTag/LocationTag';
 import { AuthContext } from '../../context/auth.context';
 
-type EventCardProps = {
-  key?: number | string;
-  eventInfo: Event;
-};
-
-function EventCard({ eventInfo }: EventCardProps) {
+function EventCard({
+  active,
+  customers,
+  date,
+  id,
+  location,
+  name,
+  splashImg,
+  description,
+  takeOrders,
+  orders,
+  staff,
+}: Pick<
+  Event,
+  | 'active'
+  | 'customers'
+  | 'date'
+  | 'id'
+  | 'location'
+  | 'name'
+  | 'splashImg'
+  | 'description'
+  | 'takeOrders'
+  | 'orders'
+  | 'staff'
+>) {
   const [expanded, setExpanded] = useState(false);
 
   const { user } = useContext(AuthContext);
 
-  if (!eventInfo || !eventInfo.active) {
+  if (!id || !active) {
     return <Typography variant='h2'>We could not find this event!</Typography>;
   }
 
   return (
     <Card sx={{ my: 2 }}>
-      <Link to={`/event/${eventInfo.id}`}>
-        <CardMedia
-          component='img'
-          image={eventInfo.splashImg}
-          alt={eventInfo.name}
-        />
+      <Link to={`/event/${id}`}>
+        <CardMedia component='img' image={splashImg} alt={name} />
       </Link>
       <Stack sx={{ p: 2 }}>
         <Stack
@@ -51,14 +67,14 @@ function EventCard({ eventInfo }: EventCardProps) {
           justifyContent='space-between'
           alignItems='center'
         >
-          <Link to={`/event/${eventInfo.id}`}>
+          <Link to={`/event/${id}`}>
             <Typography variant='h5' fontWeight={700}>
-              {eventInfo.name}
+              {name}
             </Typography>
           </Link>
-          {eventInfo.customers[0] && eventInfo.customers[0].profileImg && (
-            <AvatarGroup max={3} total={eventInfo.customers.length}>
-              {eventInfo.customers.slice(0, 2).map((customer) => (
+          {customers[0] && customers[0].profileImg && (
+            <AvatarGroup max={3} total={customers.length}>
+              {customers.slice(0, 2).map((customer) => (
                 <Avatar
                   key={customer.id}
                   alt={customer.name}
@@ -68,7 +84,16 @@ function EventCard({ eventInfo }: EventCardProps) {
             </AvatarGroup>
           )}
         </Stack>
-        {user && eventInfo && <EventActions user={user} event={eventInfo} />}
+        {user && (
+          <EventActions
+            user={user}
+            customers={customers}
+            staff={staff}
+            takeOrders={takeOrders}
+            orders={orders}
+            id={id}
+          />
+        )}
       </Stack>
       <Divider />
       <Stack
@@ -78,9 +103,9 @@ function EventCard({ eventInfo }: EventCardProps) {
       >
         <Chip
           icon={<CalendarMonthIcon />}
-          label={dayjs(eventInfo.date).format('DD/MM/YYYY')}
+          label={dayjs(date).format('DD/MM/YYYY')}
         />
-        <LocationTag {...eventInfo.location} />
+        <LocationTag {...location} />
       </Stack>
       <Divider />
       <CardActions onClick={() => setExpanded(!expanded)}>
@@ -91,7 +116,7 @@ function EventCard({ eventInfo }: EventCardProps) {
       </CardActions>
       <Collapse in={expanded}>
         <CardContent>
-          <Typography>{eventInfo.description}</Typography>
+          <Typography>{description}</Typography>
         </CardContent>
       </Collapse>
     </Card>

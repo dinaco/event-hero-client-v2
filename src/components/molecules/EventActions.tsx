@@ -7,13 +7,19 @@ import OrderListButton from '../global/atoms/OrderListButton';
 
 type Props = {
   user: UserInfo;
-  event: Event;
-};
+} & Pick<Event, 'customers' | 'staff' | 'takeOrders' | 'orders' | 'id'>;
 
-function EventActions({ user, event }: Props) {
+function EventActions({
+  user,
+  customers,
+  staff,
+  takeOrders,
+  orders,
+  id,
+}: Props) {
   const [attending, setAttending] = useState<boolean>(
-    event.customers.some((customer) => customer.id === user?.id) ||
-      event.staff.some((staff) => staff.id === user?.id)
+    customers.some((customer) => customer.id === user?.id) ||
+      staff.some((staff) => staff.id === user?.id)
   );
 
   return (
@@ -29,17 +35,16 @@ function EventActions({ user, event }: Props) {
     >
       {user?.role === 'customer' && (
         <AttendEventButton
-          event={event}
+          orders={orders}
+          id={id}
           setAttending={setAttending}
           attending={attending}
         />
       )}
       {user?.role === 'customer' && attending && (
-        <OrderButton disabled={!event.takeOrders} />
+        <OrderButton disabled={!takeOrders} />
       )}
-      {attending && (
-        <OrderListButton event={event} disabled={!event.orders.length} />
-      )}
+      {attending && <OrderListButton id={id} disabled={!orders.length} />}
     </Stack>
   );
 }

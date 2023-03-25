@@ -1,7 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import MainRoutes from './configurations/router/MainRoutes';
 
-const App = (): JSX.Element => {
+const App = () => {
   {
     /* <ListButton
           {...entityInformation.optionProps}
@@ -17,8 +17,6 @@ const App = (): JSX.Element => {
   //TODO: useMemo or usecallback on attending button?
 
   //TODO: create makestyles/usestyles for myaccount children and check the rest, use login and signup as reference
-
-  //TODO: add Event List to homepage
 
   //TODO: Check where useeffect, usememo and usecallback are missing. usenavigate should be used inside useeffect?
 

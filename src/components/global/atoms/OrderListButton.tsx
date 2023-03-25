@@ -5,10 +5,9 @@ import type { Event } from '../../../utilities/GlobalTypes';
 
 type Props = {
   disabled: boolean;
-  event: Event;
-};
+} & Pick<Event, 'id'>;
 
-function OrderListButton({ disabled, event }: Props) {
+function OrderListButton({ disabled, id }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -16,7 +15,7 @@ function OrderListButton({ disabled, event }: Props) {
       disabled={disabled}
       color='primary'
       variant='extended'
-      onClick={() => navigate(`/orders/${event.id}`)}
+      onClick={() => navigate(`/orders/${id}`)}
       size='large'
     >
       <FormatListBulletedIcon sx={{ mr: 1 }} />

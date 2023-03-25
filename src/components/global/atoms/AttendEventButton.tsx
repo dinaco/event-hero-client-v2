@@ -1,15 +1,14 @@
 import { Fab } from '@mui/material';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import type { Event } from '../../../utilities/GlobalTypes';
 import useAttendEventButton from './AttendEventButton.logic';
+import type { AttendingEventProps } from './AttendEventButton.logic';
 
-type Props = {
-  attending: boolean;
-  setAttending: (attending: boolean) => void;
-  event: Event;
-};
-
-function AttendEventButton({ attending, setAttending, event }: Props) {
+function AttendEventButton({
+  attending,
+  setAttending,
+  orders,
+  id,
+}: AttendingEventProps) {
   /*   const AttendEventToggle = () => {
     setAttending(!attending);
     changeAttendingStatus();
@@ -18,7 +17,8 @@ function AttendEventButton({ attending, setAttending, event }: Props) {
   const { changeAttendingStatus } = useAttendEventButton({
     attending,
     setAttending,
-    event,
+    orders,
+    id,
   });
 
   return (
