@@ -38,6 +38,7 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      throw new Error(error);
     } finally {
       setIsLoading(false);
     }
@@ -53,6 +54,7 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      throw new Error(error);
     } finally {
       setIsLoading(false);
     }
@@ -68,6 +70,7 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      throw new Error(error);
     } finally {
       setIsLoading(false);
     }
@@ -82,6 +85,7 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      throw new Error(error);
     } finally {
       setIsLoading(false);
     }
@@ -97,6 +101,7 @@ const useServerAPI = () => {
       return response;
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      throw new Error(error);
     } finally {
       setIsLoading(false);
     }
@@ -111,6 +116,7 @@ const useServerAPI = () => {
       userLogin(body);
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      throw new Error(error);
     } finally {
       setIsLoading(false);
     }

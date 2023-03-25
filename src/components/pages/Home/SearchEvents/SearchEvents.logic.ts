@@ -9,13 +9,9 @@ const useSearchEvents = () => {
   const { isLoading, fetchRequest } = useServerAPI();
 
   useEffect(() => {
-    fetchRequest(`/api/events?q=${searchEvents}`)
-      .then((response) => {
-        setEvents(response?.data);
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    fetchRequest(`/api/events?q=${searchEvents}`).then((response) =>
+      setEvents(response?.data)
+    );
   }, [searchEvents]);
 
   return {

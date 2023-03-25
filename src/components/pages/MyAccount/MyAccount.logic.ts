@@ -8,13 +8,9 @@ function useMyAccount() {
   const { fetchRequest } = useServerAPI();
 
   useEffect(() => {
-    fetchRequest('/api/my-events')
-      .then((response) => {
-        setUserInfo(response?.data);
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    fetchRequest('/api/my-events').then((response) =>
+      setUserInfo(response?.data)
+    );
   }, []);
 
   return { userInfo };

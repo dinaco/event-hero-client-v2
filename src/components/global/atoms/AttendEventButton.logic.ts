@@ -24,13 +24,7 @@ function useAttendEventButton({
     }
 
     const body = { attending };
-    putRequest(`/api/event/${id}`, body)
-      .then(() => {
-        setAttending(!attending);
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    putRequest(`/api/event/${id}`, body).then(() => setAttending(!attending));
   };
 
   return { changeAttendingStatus };

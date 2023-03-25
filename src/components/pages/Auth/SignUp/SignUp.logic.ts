@@ -25,14 +25,7 @@ export const useSignUp = () => {
     e.preventDefault();
     const body: SignUpFields = { email, password, name };
 
-    userSignUp(body)
-      .then(() => {
-        setPassword('');
-        // handleChange(e, 0); use this approach if you want to switch to login tab after sucessful signup
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    userSignUp(body).then(() => setPassword(''));
   };
   return {
     name,

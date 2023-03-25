@@ -60,10 +60,9 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
         setIsLoggedIn(true);
         setUser(response?.data);
       })
-      .catch((err) => {
+      .catch(() => {
         setIsLoggedIn(false);
         setUser(undefined);
-        throw new Error(err);
       });
   };
 

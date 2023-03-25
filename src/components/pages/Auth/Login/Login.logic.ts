@@ -20,13 +20,7 @@ export const useLogin = () => {
     e.preventDefault();
     const body: LoginFields = { email, password };
 
-    userLogin(body)
-      .then(() => {
-        setPassword('');
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    userLogin(body).then(() => setPassword(''));
   };
   return {
     email,
