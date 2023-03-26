@@ -52,8 +52,12 @@ function EventCard({
 
   const { user } = useContext(AuthContext);
 
-  if (!id || !active) {
+  if (!id) {
     return <Typography variant='h2'>We could not find this event!</Typography>;
+  }
+
+  if (!active) {
+    return <Typography variant='h2'>This event was deactivated!</Typography>;
   }
 
   return (

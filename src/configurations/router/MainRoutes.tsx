@@ -9,6 +9,7 @@ import MyAccount from '../../components/pages/MyAccount/MyAccount';
 import NotFound from '../../components/pages/NotFound';
 import SearchEvents from '../../components/pages/Home/SearchEvents/SearchEvents';
 import AdminPage from '../../components/admin/AdminPage';
+import Event from '../../components/pages/Event/Event';
 
 const MainRoutes = () => (
   <Routes>
@@ -16,6 +17,7 @@ const MainRoutes = () => (
     {/** Wrap all Route under PublicRoutes element */}
     <Route path='/' element={<Navbar />}>
       <Route path='/' element={<SearchEvents />} />
+      <Route path='/event/:eventId' element={<Event />} />
       <Route path='/login' element={<PublicRoutes />}>
         <Route path='/login' element={<TabbedAuthForm />} />
       </Route>
