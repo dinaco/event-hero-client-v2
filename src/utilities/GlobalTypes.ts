@@ -29,6 +29,7 @@ export type UserRoles =
   | 'event-staff';
 
 export type UserInfo = {
+  _id: string;
   id: string;
   email: string;
   name: string;

@@ -17,7 +17,7 @@ const AuthContext = createContext({} as AuthContextType);
 
 function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<AuthContextType['user']>(undefined);
+  const [user, setUser] = useState<AuthContextType['user']>();
   const { verifyAuthToken } = useServerAPI();
 
   const storeToken = (token: string) => {

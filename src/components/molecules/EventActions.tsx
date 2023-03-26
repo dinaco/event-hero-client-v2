@@ -18,8 +18,8 @@ function EventActions({
   id,
 }: Props) {
   const [attending, setAttending] = useState<boolean>(
-    customers.some((customer) => customer.id === user?.id) ||
-      staff.some((staff) => staff.id === user?.id)
+    customers.some((customer) => customer.id === user?._id) ||
+      staff.some((staff) => staff.id === user?._id)
   );
 
   return (
