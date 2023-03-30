@@ -76,6 +76,21 @@ const useServerAPI = () => {
     }
   }
 
+  async function deleteRequest<T>(url: string) {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_BASE_API_URL}${url}`,
+        bearerToken
+      );
+      return response;
+    } catch (error: any) {
+      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      throw new Error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   async function verifyAuthToken(bearerToken: AuthHeaders) {
     try {
       const response = await axios.get(
@@ -124,6 +139,7 @@ const useServerAPI = () => {
 
   return {
     isLoading,
+    deleteRequest,
     fetchRequest,
     postRequest,
     putRequest,

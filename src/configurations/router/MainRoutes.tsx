@@ -10,6 +10,7 @@ import NotFound from '../../components/pages/NotFound';
 import SearchEvents from '../../components/pages/Home/SearchEvents/SearchEvents';
 import AdminPage from '../../components/admin/AdminPage';
 import Event from '../../components/pages/Event/Event';
+import Profile from '../../components/pages/Profile/Profile';
 
 const MainRoutes = () => (
   <Routes>
@@ -29,6 +30,7 @@ const MainRoutes = () => (
         element={<ProtectedRoutes rolesRequired={['customer']} />}
       >
         <Route path='/my-account/' element={<MyAccount />} />
+        <Route path='/profile' element={<Profile />} />
       </Route>
       <Route
         path='/'

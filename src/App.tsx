@@ -12,6 +12,8 @@ const App = () => {
             /> */
   }
 
+  //FIXME: bug on private routes, when reloding on profile page it redirects to my-account
+
   //TODO: Emptystate component
 
   //TODO: useMemo or usecallback on attending button?
