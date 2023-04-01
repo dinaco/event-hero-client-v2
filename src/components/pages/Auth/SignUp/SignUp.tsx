@@ -13,15 +13,7 @@ import { useSignUp } from './SignUp.logic';
 
 const Signup = () => {
   const { classes } = useStyles();
-  const {
-    name,
-    email,
-    password,
-    handleName,
-    handleEmail,
-    handlePassword,
-    handleSubmit,
-  } = useSignUp();
+  const { registrationInfo, setRegistrationInfo, handleSubmit } = useSignUp();
 
   return (
     <Grid>
@@ -36,16 +28,23 @@ const Signup = () => {
           <TextField
             fullWidth
             label='Full Name'
-            value={name}
-            onChange={handleName}
+            value={registrationInfo.name}
+            onChange={(e) =>
+              setRegistrationInfo({ ...registrationInfo, name: e.target.value })
+            }
             placeholder='Enter your full name'
             required
           />
           <TextField
             fullWidth
             label='Email'
-            value={email}
-            onChange={handleEmail}
+            value={registrationInfo.email}
+            onChange={(e) =>
+              setRegistrationInfo({
+                ...registrationInfo,
+                email: e.target.value,
+              })
+            }
             placeholder='Enter your email'
             required
           />
@@ -53,8 +52,13 @@ const Signup = () => {
             fullWidth
             label='Password'
             type='password'
-            value={password}
-            onChange={handlePassword}
+            value={registrationInfo.password}
+            onChange={(e) =>
+              setRegistrationInfo({
+                ...registrationInfo,
+                password: e.target.value,
+              })
+            }
             placeholder='Enter your password'
             required
           />

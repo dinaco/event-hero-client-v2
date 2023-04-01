@@ -33,7 +33,6 @@ export type UserInfo = {
   id: string;
   email: string;
   name: string;
-  hashedPassword: string;
   profileImg?: string;
   balance: number;
   events: Event[];

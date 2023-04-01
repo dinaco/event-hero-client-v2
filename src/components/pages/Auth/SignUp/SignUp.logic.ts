@@ -1,39 +1,35 @@
 import { useState } from 'react';
 import useServerAPI from '../../../../configurations/API/ServerAPI';
-import type {
-  HandleChangeAuthForm,
-  HandleClickAuthForm,
-} from '../TabbedAuthForm.static';
+import type { HandleClickAuthForm } from '../TabbedAuthForm.static';
 
 export type SignUpFields = {
-  email: string;
   name: string;
+  email: string;
   password: string;
 };
 
 export const useSignUp = () => {
-  const [email, setEmail] = useState('');
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const [registrationInfo, setRegistrationInfo] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
   const { userSignUp } = useServerAPI();
 
-  const handleEmail = (e: HandleChangeAuthForm) => setEmail(e.target.value);
-  const handleName = (e: HandleChangeAuthForm) => setName(e.target.value);
-  const handlePassword = (e: HandleChangeAuthForm) =>
-    setPassword(e.target.value);
   const handleSubmit = (e: HandleClickAuthForm) => {
     e.preventDefault();
-    const body: SignUpFields = { email, password, name };
 
-    userSignUp(body).then(() => setPassword(''));
+    userSignUp(registrationInfo).then(() =>
+      setRegistrationInfo({
+        name: '',
+        email: '',
+        password: '',
+      })
+    );
   };
   return {
-    name,
-    email,
-    password,
-    handleName,
-    handleEmail,
-    handlePassword,
+    registrationInfo,
+    setRegistrationInfo,
     handleSubmit,
   };
 };

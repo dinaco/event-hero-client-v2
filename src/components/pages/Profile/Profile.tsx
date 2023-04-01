@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useContext, useRef } from 'react';
 import { AuthContext } from '../../../context/auth.context';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -6,7 +6,6 @@ import {
   Typography,
   Stack,
   TextField,
-  Grid,
   Avatar,
   Button,
   Badge,
@@ -19,12 +18,16 @@ import useServerAPI from '../../../configurations/API/ServerAPI';
 import SnackBar from '../../../utilities/SnackBar';
 
 function Profile() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [profileImg, setProfileImg] = useState();
-  const [password, setPassword] = useState();
+  const { user, setUser } = useContext(AuthContext);
 
-  const { isLoading, deleteRequest, fetchRequest, putRequest } = useServerAPI();
+  const [userSettings, setUserSettings] = useState({
+    name: user?.name,
+    email: user?.email,
+    profileImg: user?.profileImg,
+    password: '',
+  });
+
+  const { isLoading, deleteRequest, putRequest } = useServerAPI();
 
   const navigate = useNavigate();
 
@@ -32,26 +35,20 @@ function Profile() {
 
   const { logoutUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchRequest('/api/profile').then((response) => {
-      setName(response.data.name);
-      setEmail(response.data.email);
-      setProfileImg(response.data.profileImg);
-    });
-  }, []);
-
-  const handleSubmit = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const body = { email, password, name };
-    putRequest('/api/profile', body).then(() =>
-      SnackBar({ message: 'Profile Updated!', type: 'success' })
-    );
+    putRequest('/api/profile', userSettings).then(() => {
+      SnackBar({ message: 'Profile Updated!', type: 'success' });
+      setUserSettings({ ...userSettings, password: '' });
+      setUser({
+        ...user,
+        name: userSettings.name,
+        email: userSettings.email,
+        profileImg: userSettings.profileImg,
+      });
+    });
   };
-  const handleDelete = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleDelete = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     deleteRequest('/api/profile').then(() => {
       SnackBar({ message: 'Account deleted!' });
@@ -63,10 +60,6 @@ function Profile() {
   const handleProfileImg = () => {
     inputFile.current.click();
   };
-
-  if (isLoading) {
-    return <LoadingImg />;
-  }
 
   return (
     <Paper elevation={20}>
@@ -89,8 +82,8 @@ function Profile() {
         >
           <Avatar
             sx={{ width: 112, height: 112 }}
-            alt={name}
-            src={profileImg}
+            alt={userSettings.name}
+            src={userSettings.profileImg}
           />
         </Badge>
         <input
@@ -106,16 +99,20 @@ function Profile() {
         <TextField
           fullWidth
           label='Full Name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={userSettings.name}
+          onChange={(e) =>
+            setUserSettings({ ...userSettings, name: e.target.value })
+          }
           placeholder='Enter your full name'
           required
         />
         <TextField
           fullWidth
           label='Email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userSettings.email}
+          onChange={(e) =>
+            setUserSettings({ ...userSettings, email: e.target.value })
+          }
           placeholder='Enter your email'
           required
         />
@@ -123,24 +120,23 @@ function Profile() {
           fullWidth
           label='Password'
           type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={userSettings.password}
+          onChange={(e) =>
+            setUserSettings({ ...userSettings, password: e.target.value })
+          }
           placeholder='Enter your password'
           required
         />
         <Stack pt={2} spacing={4}>
           <Button
-            type='submit'
             fullWidth
             onClick={handleSubmit}
             variant='contained'
             startIcon={<EditIcon />}
-            color='primary'
           >
             Edit
           </Button>
           <Button
-            type='submit'
             fullWidth
             onClick={handleDelete}
             startIcon={<DeleteIcon />}

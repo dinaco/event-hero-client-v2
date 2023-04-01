@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react';
+import type { Dispatch, PropsWithChildren, SetStateAction } from 'react';
 import { useState, useEffect, createContext } from 'react';
 import useServerAPI from '../configurations/API/ServerAPI';
 import type { UserInfo } from '../utilities/GlobalTypes';
@@ -6,6 +6,7 @@ import type { UserInfo } from '../utilities/GlobalTypes';
 type AuthContextType = {
   isLoggedIn: boolean;
   user?: UserInfo;
+  setUser: Dispatch<SetStateAction<UserInfo | undefined>>;
   storeToken: (token: string) => void;
   authenticateUser: () => void;
   logoutUser: () => void;
@@ -75,6 +76,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
       value={{
         isLoggedIn,
         user,
+        setUser,
         storeToken,
         authenticateUser,
         logoutUser,

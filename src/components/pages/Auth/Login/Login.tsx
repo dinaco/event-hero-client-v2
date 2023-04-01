@@ -13,8 +13,7 @@ import { useLogin } from './Login.logic';
 
 const Login = () => {
   const { classes } = useStyles();
-  const { email, password, handleEmail, handlePassword, handleSubmit } =
-    useLogin();
+  const { loginInfo, setLoginInfo, handleSubmit } = useLogin();
 
   return (
     <Grid>
@@ -29,16 +28,20 @@ const Login = () => {
           <TextField
             label='Email'
             placeholder='Enter email'
-            value={email}
-            onChange={handleEmail}
+            value={loginInfo.email}
+            onChange={(e) =>
+              setLoginInfo({ ...loginInfo, email: e.target.value })
+            }
             required
           />
           <TextField
             label='Password'
             placeholder='Enter password'
             type='password'
-            value={password}
-            onChange={handlePassword}
+            value={loginInfo.password}
+            onChange={(e) =>
+              setLoginInfo({ ...loginInfo, password: e.target.value })
+            }
             required
           />
         </Stack>

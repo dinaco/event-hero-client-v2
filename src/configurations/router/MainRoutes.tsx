@@ -29,7 +29,7 @@ const MainRoutes = () => (
         path='/'
         element={<ProtectedRoutes rolesRequired={['customer']} />}
       >
-        <Route path='/my-account/' element={<MyAccount />} />
+        <Route path='/my-account' element={<MyAccount />} />
         <Route path='/profile' element={<Profile />} />
       </Route>
       <Route
