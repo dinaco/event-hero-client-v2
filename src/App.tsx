@@ -39,6 +39,8 @@ const App = () => {
 
   //TODO: change to aws infrastructure like cognito, dynamodb, sqs, sns, opensearch
 
+  //FIXME: fix typescript error profile page and implement image upload system
+
   return (
     <>
       <MainRoutes />

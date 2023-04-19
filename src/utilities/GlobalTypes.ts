@@ -13,13 +13,39 @@ export type Event = {
   id: string;
   location: Location;
   name: string;
-  orders: string[];
-  products: string[];
+  orders: Order[];
+  products: Product[];
   splashImg: string;
   staff: UserInfo[];
   takeOrders: boolean;
   updatedAt: string;
   description: string;
+};
+
+export type Order = {
+  id: string;
+  total: number;
+  bgColor: string;
+  status: string;
+  products: Product[];
+  event: Event;
+  customer: UserInfo;
+  staff: UserInfo;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Product = {
+  id: string;
+  name: string;
+  productImg: string;
+  manufacturer: string;
+  price: number;
+  event: Event;
+  active: boolean;
+  orders: Order[];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type UserRoles =
@@ -36,7 +62,7 @@ export type UserInfo = {
   profileImg?: string;
   balance: number;
   events: Event[];
-  orders: string[];
+  orders: Order[];
   role: UserRoles;
   active: boolean;
   updatedAt: string;

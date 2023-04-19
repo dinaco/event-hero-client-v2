@@ -11,6 +11,7 @@ import SearchEvents from '../../components/pages/Home/SearchEvents/SearchEvents'
 import AdminPage from '../../components/admin/AdminPage';
 import Event from '../../components/pages/Event/Event';
 import Profile from '../../components/pages/Profile/Profile';
+import OrderList from '../../components/organism/OrderList/OrderList';
 
 const MainRoutes = () => (
   <Routes>
@@ -27,10 +28,13 @@ const MainRoutes = () => (
       {/** Wrap all Route under ProtectedRoutes element for each role */}
       <Route
         path='/'
-        element={<ProtectedRoutes rolesRequired={['customer']} />}
+        element={
+          <ProtectedRoutes rolesRequired={['customer', 'event-staff']} />
+        }
       >
         <Route path='/my-account' element={<MyAccount />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/orders/:eventId' element={<OrderList />} />
       </Route>
       <Route
         path='/'
