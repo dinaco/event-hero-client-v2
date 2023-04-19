@@ -1,6 +1,3 @@
-import { useState, useContext, useRef } from 'react';
-import { AuthContext } from '../../../context/auth.context';
-import { useNavigate } from 'react-router-dom';
 import {
   Paper,
   Typography,
@@ -14,52 +11,22 @@ import EditIcon from '@mui/icons-material/Edit';
 import { blue } from '@mui/material/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import LoadingImg from '../../global/atoms/LoadingImg';
-import useServerAPI from '../../../configurations/API/ServerAPI';
-import SnackBar from '../../../utilities/SnackBar';
+import useProfile from './Profile.logic';
 
 function Profile() {
-  const { user, setUser } = useContext(AuthContext);
+  const {
+    inputFile,
+    isLoading,
+    handleSubmit,
+    handleDelete,
+    handleProfileImg,
+    userSettings,
+    setUserSettings,
+  } = useProfile();
 
-  const [userSettings, setUserSettings] = useState({
-    name: user?.name,
-    email: user?.email,
-    profileImg: user?.profileImg,
-    password: '',
-  });
-
-  const { isLoading, deleteRequest, putRequest } = useServerAPI();
-
-  const navigate = useNavigate();
-
-  const inputFile = useRef();
-
-  const { logoutUser } = useContext(AuthContext);
-
-  const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    putRequest('/api/profile', userSettings).then(() => {
-      SnackBar({ message: 'Profile Updated!', type: 'success' });
-      setUserSettings({ ...userSettings, password: '' });
-      setUser({
-        ...user,
-        name: userSettings.name,
-        email: userSettings.email,
-        profileImg: userSettings.profileImg,
-      });
-    });
-  };
-  const handleDelete = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
-    deleteRequest('/api/profile').then(() => {
-      SnackBar({ message: 'Account deleted!' });
-      logoutUser();
-      navigate('/');
-    });
-  };
-
-  const handleProfileImg = () => {
-    inputFile.current.click();
-  };
+  if (isLoading) {
+    return <LoadingImg />;
+  }
 
   return (
     <Paper elevation={20}>
@@ -85,15 +52,14 @@ function Profile() {
             alt={userSettings.name}
             src={userSettings.profileImg}
           />
+          <input
+            hidden
+            type='file'
+            accept='image/*'
+            multiple={false}
+            ref={inputFile}
+          />
         </Badge>
-        <input
-          type='file'
-          accept='image/*'
-          //   multiple={false}
-          id='file'
-          ref={inputFile}
-          style={{ display: 'none' }}
-        />
       </Stack>
       <Stack sx={{ p: 4 }} spacing={2}>
         <TextField

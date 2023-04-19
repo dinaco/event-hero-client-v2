@@ -18,7 +18,7 @@ type AuthHeaders = {
 };
 
 const useServerAPI = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const { loginUser } = useContext(AuthContext);
 
   const getAuthToken = localStorage.getItem('authToken');
@@ -31,6 +31,7 @@ const useServerAPI = () => {
 
   async function fetchRequest(url: string) {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
         bearerToken
@@ -46,6 +47,7 @@ const useServerAPI = () => {
 
   async function postRequest<T>(url: string, body: T) {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
         body,
@@ -62,6 +64,7 @@ const useServerAPI = () => {
 
   async function putRequest<T>(url: string, body: T) {
     try {
+      setIsLoading(true);
       const response = await axios.put(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
         body,
@@ -78,6 +81,7 @@ const useServerAPI = () => {
 
   async function deleteRequest<T>(url: string) {
     try {
+      setIsLoading(true);
       const response = await axios.delete(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
         bearerToken
@@ -93,6 +97,7 @@ const useServerAPI = () => {
 
   async function verifyAuthToken(bearerToken: AuthHeaders) {
     try {
+      setIsLoading(true);
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Verify}`,
         bearerToken
@@ -108,6 +113,7 @@ const useServerAPI = () => {
 
   async function userLogin(body: LoginFields) {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Login}`,
         body
@@ -124,6 +130,7 @@ const useServerAPI = () => {
 
   async function userSignUp(body: SignUpFields) {
     try {
+      setIsLoading(true);
       await axios.post(
         `${import.meta.env.VITE_BASE_API_URL}${Path.SignUp}`,
         body

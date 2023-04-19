@@ -14,6 +14,8 @@ const App = () => {
 
   //FIXME: bug on private routes, when reloding on profile page it redirects to my-account
 
+  //TODO: replace axios with react query for test api calls
+
   //TODO: Emptystate component
 
   //TODO: useMemo or usecallback on attending button?
@@ -34,8 +36,6 @@ const App = () => {
 
   // TODO:  (not sure if possible on free tier with private repo) add github stuff, block main from push, create dev branch, create pipeline, create github actions,
   //maybe auto deploy to netlify
-
-  //TODO: Change it to graphQL/Apollo?
 
   //TODO: change to aws infrastructure like cognito, dynamodb, sqs, sns, opensearch
 
