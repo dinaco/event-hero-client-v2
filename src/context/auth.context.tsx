@@ -1,12 +1,12 @@
-import type { Dispatch, PropsWithChildren, SetStateAction } from 'react';
-import { useState, useEffect, createContext } from 'react';
+import type { PropsWithChildren } from 'react';
+import { useState, useEffect, createContext, useCallback } from 'react';
 import useServerAPI from '../configurations/API/ServerAPI';
 import type { UserInfo } from '../utilities/GlobalTypes';
 
 type AuthContextType = {
   isLoggedIn: boolean;
   user?: UserInfo;
-  setUser: Dispatch<SetStateAction<UserInfo | undefined>>;
+  setUser: (user: UserInfo) => void;
   storeToken: (token: string) => void;
   authenticateUser: () => void;
   logoutUser: () => void;
@@ -43,9 +43,8 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
     return localStorage.getItem('authToken');
   };
 
-  const authenticateUser = () => {
+  const authenticateUser = useCallback(() => {
     const storedToken = getToken();
-
     if (!storedToken) {
       setIsLoggedIn(false);
       setUser(undefined);
@@ -59,13 +58,13 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
     })
       .then((response) => {
         setIsLoggedIn(true);
-        setUser(response?.data);
+        setUser(response);
       })
       .catch(() => {
         setIsLoggedIn(false);
         setUser(undefined);
       });
-  };
+  }, [verifyAuthToken]);
 
   useEffect(() => {
     authenticateUser();

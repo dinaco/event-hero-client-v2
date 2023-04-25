@@ -10,7 +10,7 @@ const useSearchEvents = () => {
 
   useEffect(() => {
     fetchRequest(`/api/events?q=${searchEvents}`).then((response) =>
-      setEvents(response?.data)
+      setEvents(response)
     );
   }, [searchEvents]);
 

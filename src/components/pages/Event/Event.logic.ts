@@ -11,7 +11,7 @@ function useMyAccount() {
 
   useEffect(() => {
     fetchRequest(`/api/event/${eventId}`).then((response) =>
-      setEventInfo(response?.data)
+      setEventInfo(response)
     );
   }, []);
 

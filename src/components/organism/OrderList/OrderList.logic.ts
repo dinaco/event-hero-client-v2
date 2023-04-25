@@ -17,7 +17,7 @@ function useOrderList() {
 
   useEffect(() => {
     fetchRequest(`/api/orders/${eventId}`).then((response) => {
-      const { orders, events } = response.data;
+      const { orders, events } = response;
       let completed = 0;
       const total = orders.reduce((a: number, b: Order) => {
         if (b.status === 'completed') {

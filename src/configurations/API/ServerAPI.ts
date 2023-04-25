@@ -1,8 +1,6 @@
-import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import type { LoginFields } from '../../components/pages/Auth/Login/Login.logic';
 import type { SignUpFields } from '../../components/pages/Auth/SignUp/SignUp.logic';
-import { AuthContext } from '../../context/auth.context';
 import SnackBar from '../../utilities/SnackBar';
 
 enum Path {
@@ -10,6 +8,8 @@ enum Path {
   SignUp = '/auth/signup',
   Verify = '/auth/verify',
 }
+
+type HttpMethod = 'GET' | 'PUT' | 'POST' | 'DELETE' | 'OPTIONS' | 'PATCH';
 
 type AuthHeaders = {
   headers: {
@@ -19,7 +19,6 @@ type AuthHeaders = {
 
 const useServerAPI = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { loginUser } = useContext(AuthContext);
 
   const getAuthToken = localStorage.getItem('authToken');
 
@@ -29,14 +28,31 @@ const useServerAPI = () => {
     },
   };
 
+  const prepareOptions = (method: HttpMethod, body: any): RequestInit => {
+    const options = { method, ...bearerToken };
+
+    if (body) {
+      return {
+        ...options,
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+    }
+
+    return options;
+  };
+
   async function fetchRequest(url: string) {
+    const options = prepareOptions('GET', null);
     try {
       setIsLoading(true);
-      const response = await axios.get(
+      const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
-        bearerToken
+        { ...options }
       );
-      return response;
+      return response.json();
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
       throw new Error(error);
@@ -46,14 +62,14 @@ const useServerAPI = () => {
   }
 
   async function postRequest<T>(url: string, body: T) {
+    const options = prepareOptions('POST', body);
     try {
       setIsLoading(true);
-      const response = await axios.post(
+      const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
-        body,
-        bearerToken
+        { ...options }
       );
-      return response;
+      return response.json();
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
       throw new Error(error);
@@ -63,14 +79,14 @@ const useServerAPI = () => {
   }
 
   async function putRequest<T>(url: string, body: T) {
+    const options = prepareOptions('PUT', body);
     try {
       setIsLoading(true);
-      const response = await axios.put(
+      const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
-        body,
-        bearerToken
+        { ...options }
       );
-      return response;
+      return response.json();
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
       throw new Error(error);
@@ -79,14 +95,15 @@ const useServerAPI = () => {
     }
   }
 
-  async function deleteRequest<T>(url: string) {
+  async function deleteRequest(url: string) {
+    const options = prepareOptions('DELETE', null);
     try {
       setIsLoading(true);
-      const response = await axios.delete(
+      const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}${url}`,
-        bearerToken
+        { ...options }
       );
-      return response;
+      return response.json();
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
       throw new Error(error);
@@ -96,13 +113,14 @@ const useServerAPI = () => {
   }
 
   async function verifyAuthToken(bearerToken: AuthHeaders) {
+    const options = prepareOptions('GET', null);
     try {
       setIsLoading(true);
-      const response = await axios.get(
+      const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Verify}`,
-        bearerToken
+        { ...options, ...bearerToken }
       );
-      return response;
+      return response.json();
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
       throw new Error(error);
@@ -112,14 +130,14 @@ const useServerAPI = () => {
   }
 
   async function userLogin(body: LoginFields) {
+    const options = prepareOptions('POST', body);
     try {
       setIsLoading(true);
-      const response = await axios.post(
+      const response = await fetch(
         `${import.meta.env.VITE_BASE_API_URL}${Path.Login}`,
-        body
+        { ...options }
       );
-      loginUser(response?.data.authToken);
-      return response;
+      return response.json();
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });
       throw new Error(error);
@@ -129,12 +147,12 @@ const useServerAPI = () => {
   }
 
   async function userSignUp(body: SignUpFields) {
+    const options = prepareOptions('POST', body);
     try {
       setIsLoading(true);
-      await axios.post(
-        `${import.meta.env.VITE_BASE_API_URL}${Path.SignUp}`,
-        body
-      );
+      await fetch(`${import.meta.env.VITE_BASE_API_URL}${Path.SignUp}`, {
+        ...options,
+      });
       userLogin(body);
     } catch (error: any) {
       SnackBar({ message: error.response.data.errorMessage, type: 'error' });

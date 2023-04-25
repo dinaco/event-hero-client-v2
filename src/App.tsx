@@ -14,7 +14,7 @@ const App = () => {
 
   //FIXME: bug on private routes, when reloding on profile page it redirects to my-account
 
-  //TODO: replace axios with react query for test api calls
+  //TODO: add react query for test api calls
 
   //TODO: Emptystate component
 

@@ -8,9 +8,7 @@ function useMyAccount() {
   const { fetchRequest } = useServerAPI();
 
   useEffect(() => {
-    fetchRequest('/api/my-events').then((response) =>
-      setUserInfo(response?.data)
-    );
+    fetchRequest('/api/my-events').then((response) => setUserInfo(response));
   }, []);
 
   return { userInfo };
