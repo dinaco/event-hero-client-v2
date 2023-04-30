@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import SnackBar from '../../utilities/SnackBar';
 import { eventsQueriesVars } from '../../utilities/react-query/constants';
 import useServerAPI from '../../configurations/API/ServerAPI';
@@ -7,10 +7,10 @@ import useDebounce from '../Debounce';
 export const useMultipleEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();
   const debouncedSearchTerm = useDebounce(searchEvents, 200);
-  const { queryKeys, url } = eventsQueriesVars.multipleEvents;
+  const { queryKey: queryKey, url } = eventsQueriesVars.multipleEvents;
   const { data, isLoading } = useQuery(
-    [queryKeys, debouncedSearchTerm],
-    () => fetchRequest(`${url}?q=${searchEvents}`),
+    [queryKey, debouncedSearchTerm],
+    () => fetchRequest('GET', `${url}?q=${searchEvents}`),
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
@@ -21,10 +21,10 @@ export const useMultipleEventsQuery = (searchEvents = '') => {
 
 export const useSingleEventQuery = (eventId: string | undefined) => {
   const { fetchRequest } = useServerAPI();
-  const { queryKeys, url } = eventsQueriesVars.singleEvent;
+  const { queryKey: queryKey, url } = eventsQueriesVars.singleEvent;
   const { data, isLoading } = useQuery(
-    [queryKeys, eventId],
-    () => fetchRequest(`${url}${eventId}`),
+    [queryKey, eventId],
+    () => fetchRequest('GET', `${url}${eventId}`),
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
@@ -33,12 +33,30 @@ export const useSingleEventQuery = (eventId: string | undefined) => {
   return { data, isLoading };
 };
 
+export const useSingleEventUpdate = (eventId: string | undefined) => {
+  const queryClient = useQueryClient();
+  const { fetchRequest } = useServerAPI();
+  const { url } = eventsQueriesVars.singleEvent;
+  const { mutate, isLoading } = useMutation(
+    (body: any) => fetchRequest('PUT', `${url}${eventId}`, body),
+    {
+      onError: (error: any) =>
+        SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
+    }
+  );
+  return { mutate, isLoading, queryClient };
+};
+
 export const useUserEventsQuery = () => {
   const { fetchRequest } = useServerAPI();
-  const { queryKeys, url } = eventsQueriesVars.userEvent;
-  const { data, isLoading } = useQuery([queryKeys], () => fetchRequest(url), {
-    onError: (error: any) =>
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
-  });
+  const { queryKey: queryKey, url } = eventsQueriesVars.userEvent;
+  const { data, isLoading } = useQuery(
+    [queryKey],
+    () => fetchRequest('GET', url),
+    {
+      onError: (error: any) =>
+        SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
+    }
+  );
   return { data, isLoading };
 };

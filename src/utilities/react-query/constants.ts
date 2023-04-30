@@ -1,9 +1,9 @@
 export const eventsQueriesVars = {
-  userEvent: { queryKeys: 'userEvent', url: '/api/my-events' },
-  multipleEvents: { queryKeys: 'multipleEvents', url: '/api/events' },
-  singleEvent: { queryKeys: 'singleEvent', url: '/api/event/' },
+  userEvent: { queryKey: 'userEvent', url: '/api/my-events' },
+  multipleEvents: { queryKey: 'multipleEvents', url: '/api/events' },
+  singleEvent: { queryKey: 'singleEvent', url: '/api/event/' },
 };
 
 export const ordersQueriesVars = {
-  multipleOrders: { queryKeys: 'multipleOrders', url: '/api/orders/' },
+  multipleOrders: { queryKey: 'multipleOrders', url: '/api/orders/' },
 };

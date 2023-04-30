@@ -1,6 +1,7 @@
-import useServerAPI from '../../../configurations/API/ServerAPI';
+import { useSingleEventUpdate } from '../../../hooks/EventsQueries/EventsQueries';
 import type { Event } from '../../../utilities/GlobalTypes';
 import SnackBar from '../../../utilities/SnackBar';
+import { eventsQueriesVars } from '../../../utilities/react-query/constants';
 
 export type AttendingEventProps = {
   attending: boolean;
@@ -13,7 +14,7 @@ function useAttendEventButton({
   orders,
   id,
 }: AttendingEventProps) {
-  const { putRequest } = useServerAPI();
+  const { mutate, queryClient } = useSingleEventUpdate(id);
 
   const changeAttendingStatus = () => {
     if (orders.length) {
@@ -24,7 +25,16 @@ function useAttendEventButton({
     }
 
     const body = { attending };
-    putRequest(`/api/event/${id}`, body).then(() => setAttending(!attending));
+    mutate(body, {
+      onSuccess: () => {
+        setAttending(!attending);
+        const queriesToInvalidate = Object.values(eventsQueriesVars).map(
+          (key) => key.queryKey
+        );
+        console.log(queriesToInvalidate);
+        queryClient.invalidateQueries();
+      },
+    });
   };
 
   return { changeAttendingStatus };

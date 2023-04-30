@@ -13,16 +13,15 @@ export const prepareQueryOptions = (
   body: any
 ): RequestInit => {
   const options = { method, ...bearerToken };
-
   if (body) {
     return {
       ...options,
       body: JSON.stringify(body),
       headers: {
+        ...options.headers,
         'Content-Type': 'application/json',
       },
     };
   }
-
   return options;
 };

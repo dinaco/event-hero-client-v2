@@ -45,8 +45,12 @@ const useServerAPI = () => {
     return options;
   };
 
-  async function fetchRequest(endPointUrl: string) {
-    const options = prepareQueryOptions('GET', null);
+  async function fetchRequest(
+    httpMethod: HttpMethod,
+    endPointUrl: string,
+    body: any = null
+  ) {
+    const options = prepareQueryOptions(httpMethod, body);
     const response = await fetch(
       `${import.meta.env.VITE_BASE_API_URL}${endPointUrl}`,
       {
@@ -54,23 +58,6 @@ const useServerAPI = () => {
       }
     );
     return response.json();
-  }
-
-  async function postRequest<T>(url: string, body: T) {
-    const options = prepareOptions('POST', body);
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_BASE_API_URL}${url}`,
-        { ...options }
-      );
-      return response.json();
-    } catch (error: any) {
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
-      throw new Error(error);
-    } finally {
-      setIsLoading(false);
-    }
   }
 
   async function putRequest<T>(url: string, body: T) {
@@ -161,7 +148,6 @@ const useServerAPI = () => {
     isLoading,
     deleteRequest,
     fetchRequest,
-    postRequest,
     putRequest,
     verifyAuthToken,
     userLogin,
