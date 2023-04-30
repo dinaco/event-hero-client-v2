@@ -1,10 +1,13 @@
 import { Typography } from '@mui/material';
 import LoadingImg from '../../global/atoms/LoadingImg';
 import EventCard from '../../organism/EventCard';
-import useEvent from './Event.logic';
+import { useParams } from 'react-router-dom';
+import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueries';
 
 function Event() {
-  const { eventInfo, isLoading } = useEvent();
+  const { eventId } = useParams();
+
+  const { data: eventInfo, isLoading } = useSingleEventQuery(eventId);
 
   if (isLoading) {
     return <LoadingImg />;

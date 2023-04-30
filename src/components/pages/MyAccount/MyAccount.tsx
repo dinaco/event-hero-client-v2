@@ -2,10 +2,10 @@ import { Paper, Typography, Stack } from '@mui/material';
 import LoadingImg from '../../global/atoms/LoadingImg';
 import Balance from '../../molecules/Balance';
 import TabEvents from './TabEvents/TabEvents';
-import useMyAccount from './MyAccount.logic';
+import { useUserEventsQuery } from '../../../hooks/EventsQueries/EventsQueries';
 
 function MyAccount() {
-  const { UserInfo, isLoading } = useMyAccount();
+  const { data: UserInfo, isLoading } = useUserEventsQuery();
 
   if (isLoading) {
     return <LoadingImg />;
