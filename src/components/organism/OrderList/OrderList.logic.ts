@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../context/auth.context';
-import useServerAPI from '../../../configurations/API/ServerAPI';
 import type { Order } from '../../../utilities/GlobalTypes';
+import { useMultipleOrdersQuery } from '../../../hooks/OrdersQueries/OrdersQueries';
 
 function useOrderList() {
   const { eventId } = useParams();
@@ -13,11 +13,11 @@ function useOrderList() {
   const [countCompleted, setCountCompleted] = useState(0);
   const { user } = useContext(AuthContext);
 
-  const { fetchRequest, isLoading } = useServerAPI();
+  const { data, isLoading } = useMultipleOrdersQuery(eventId);
 
   useEffect(() => {
-    fetchRequest(`/api/orders/${eventId}`).then((response) => {
-      const { orders, events } = response;
+    if (!isLoading) {
+      const { orders, events } = data;
       let completed = 0;
       const total = orders.reduce((a: number, b: Order) => {
         if (b.status === 'completed') {
@@ -29,8 +29,8 @@ function useOrderList() {
       setTotalSpent(total);
       setEventInfo(events[0]);
       setOrdersInfo(orders.reverse());
-    });
-  }, []);
+    }
+  }, [data]);
 
   const handleOrderDetails = (orderId: string) => {
     navigate(`/order/${orderId}`);

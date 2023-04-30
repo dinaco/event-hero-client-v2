@@ -1,4 +1,4 @@
-import { useUserEventsQuery } from '../../../hooks/EventsQuery/EventsQuery';
+import { useUserEventsQuery } from '../../../hooks/EventsQueries/EventsQueries';
 
 function useMyAccount() {
   const { data: UserInfo, isLoading } = useUserEventsQuery();

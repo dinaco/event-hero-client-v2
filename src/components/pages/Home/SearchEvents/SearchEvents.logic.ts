@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMultipleEventsQuery } from '../../../../hooks/EventsQuery/EventsQuery';
+import { useMultipleEventsQuery } from '../../../../hooks/EventsQueries/EventsQueries';
 
 const useSearchEvents = () => {
   const [searchEvents, setSearchEvents] = useState<string>('');

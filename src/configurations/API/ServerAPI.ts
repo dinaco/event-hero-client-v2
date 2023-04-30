@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { LoginFields } from '../../components/pages/Auth/Login/Login.logic';
 import type { SignUpFields } from '../../components/pages/Auth/SignUp/SignUp.logic';
 import SnackBar from '../../utilities/SnackBar';
+import { prepareQueryOptions } from '../../utilities/prepareQueryOptions';
 
 enum Path {
   Login = '/auth/login',
@@ -44,21 +45,15 @@ const useServerAPI = () => {
     return options;
   };
 
-  async function fetchRequest(url: string) {
-    const options = prepareOptions('GET', null);
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `${import.meta.env.VITE_BASE_API_URL}${url}`,
-        { ...options }
-      );
-      return response.json();
-    } catch (error: any) {
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
-      throw new Error(error);
-    } finally {
-      setIsLoading(false);
-    }
+  async function fetchRequest(endPointUrl: string) {
+    const options = prepareQueryOptions('GET', null);
+    const response = await fetch(
+      `${import.meta.env.VITE_BASE_API_URL}${endPointUrl}`,
+      {
+        ...options,
+      }
+    );
+    return response.json();
   }
 
   async function postRequest<T>(url: string, body: T) {

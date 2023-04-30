@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useSingleEventQuery } from '../../../hooks/EventsQuery/EventsQuery';
+import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueries';
 
 function useMyAccount() {
   const { eventId } = useParams();
