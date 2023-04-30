@@ -1,19 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import useServerAPI from '../../../configurations/API/ServerAPI';
-import type { Event } from '../../../utilities/GlobalTypes';
+import { useSingleEventQuery } from '../../../hooks/EventsQuery/EventsQuery';
 
 function useMyAccount() {
   const { eventId } = useParams();
-  const [eventInfo, setEventInfo] = useState<Event>();
 
-  const { fetchRequest, isLoading } = useServerAPI();
-
-  useEffect(() => {
-    fetchRequest(`/api/event/${eventId}`).then((response) =>
-      setEventInfo(response)
-    );
-  }, []);
+  const { data: eventInfo, isLoading } = useSingleEventQuery(eventId);
 
   return { eventInfo, isLoading };
 }
