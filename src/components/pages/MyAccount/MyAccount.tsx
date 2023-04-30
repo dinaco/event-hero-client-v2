@@ -5,9 +5,9 @@ import TabEvents from './TabEvents/TabEvents';
 import useMyAccount from './MyAccount.logic';
 
 function MyAccount() {
-  const { userInfo } = useMyAccount();
+  const { UserInfo, isLoading } = useMyAccount();
 
-  if (!userInfo) {
+  if (isLoading) {
     return <LoadingImg />;
   }
 
@@ -15,11 +15,11 @@ function MyAccount() {
     <Stack spacing={2}>
       <Paper elevation={20}>
         <Typography px={4} py={1} variant='h4' component='div' gutterBottom>
-          Hi, {userInfo.name}
+          Hi, {UserInfo.name}
         </Typography>
-        {userInfo.role === 'customer' && <Balance balance={userInfo.balance} />}
+        {UserInfo.role === 'customer' && <Balance balance={UserInfo.balance} />}
       </Paper>
-      <TabEvents userEvents={userInfo.events} />
+      <TabEvents userEvents={UserInfo.events} />
     </Stack>
   );
 }

@@ -1,17 +1,14 @@
-import { useEffect, useState } from 'react';
 import useServerAPI from '../../../configurations/API/ServerAPI';
-import type { UserInfo } from '../../../utilities/GlobalTypes';
+import { useQuery } from '@tanstack/react-query';
 
 function useMyAccount() {
-  const [userInfo, setUserInfo] = useState<UserInfo>();
-
   const { fetchRequest } = useServerAPI();
 
-  useEffect(() => {
-    fetchRequest('/api/my-events').then((response) => setUserInfo(response));
-  }, []);
+  const { data: UserInfo, isLoading } = useQuery(['myAccount'], () =>
+    fetchRequest('/api/my-events')
+  );
 
-  return { userInfo };
+  return { UserInfo, isLoading };
 }
 
 export default useMyAccount;
