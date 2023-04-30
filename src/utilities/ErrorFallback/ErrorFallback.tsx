@@ -1,6 +1,6 @@
 import { FallbackProps } from 'react-error-boundary';
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 interface ErrorFallbackProps extends FallbackProps {
   error: Error;
@@ -22,13 +22,13 @@ export const localText = {
 
 const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
   return (
-    <>
+    <Box>
       <Typography>
         {localText.apology}
         {localText.contactUs('/contact')}
       </Typography>
       <Typography>{localText.errorOccurred(error)}</Typography>
-    </>
+    </Box>
   );
 };
 

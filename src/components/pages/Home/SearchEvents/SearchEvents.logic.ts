@@ -1,18 +1,10 @@
-import { useEffect, useState } from 'react';
-import useServerAPI from '../../../../configurations/API/ServerAPI';
-import type { Event } from '../../../../utilities/GlobalTypes';
+import { useState } from 'react';
+import { useEventsQuery } from '../../../../hooks/EventsQuery/EventsQuery';
 
 const useSearchEvents = () => {
-  const [events, setEvents] = useState<Event[]>([]);
   const [searchEvents, setSearchEvents] = useState<string>('');
 
-  const { isLoading, fetchRequest } = useServerAPI();
-
-  useEffect(() => {
-    fetchRequest(`/api/events?q=${searchEvents}`).then((response) =>
-      setEvents(response)
-    );
-  }, [searchEvents]);
+  const { data: events, isLoading } = useEventsQuery(searchEvents);
 
   return {
     isLoading,

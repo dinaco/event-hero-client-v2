@@ -18,6 +18,7 @@ function SearchEvents() {
         {localText.title}
       </Typography>
       <TextField
+        autoFocus
         label={localText.searchPlaceHolder}
         onChange={(e) => setSearchEvents(e.target.value)}
         value={searchEvents}
