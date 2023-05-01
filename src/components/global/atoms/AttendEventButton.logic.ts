@@ -5,15 +5,9 @@ import { eventsQueriesVars } from '../../../utilities/react-query/constants';
 
 export type AttendingEventProps = {
   attending: boolean;
-  setAttending: (attending: boolean) => void;
 } & Pick<Event, 'orders' | 'id'>;
 
-function useAttendEventButton({
-  attending,
-  setAttending,
-  orders,
-  id,
-}: AttendingEventProps) {
+function useAttendEventButton({ attending, orders, id }: AttendingEventProps) {
   const { mutate, queryClient } = useSingleEventUpdate(id);
 
   const changeAttendingStatus = () => {
@@ -28,7 +22,6 @@ function useAttendEventButton({
       { attending },
       {
         onSuccess: () => {
-          //   setAttending(!attending);
           queryClient.invalidateQueries([eventsQueriesVars.rootName]);
         },
       }

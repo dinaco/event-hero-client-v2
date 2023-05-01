@@ -3,20 +3,9 @@ import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import useAttendEventButton from './AttendEventButton.logic';
 import type { AttendingEventProps } from './AttendEventButton.logic';
 
-function AttendEventButton({
-  attending,
-  setAttending,
-  orders,
-  id,
-}: AttendingEventProps) {
-  /*   const AttendEventToggle = () => {
-    setAttending(!attending);
-    changeAttendingStatus();
-  }; */
-
+function AttendEventButton({ attending, orders, id }: AttendingEventProps) {
   const { changeAttendingStatus } = useAttendEventButton({
     attending,
-    setAttending,
     orders,
     id,
   });

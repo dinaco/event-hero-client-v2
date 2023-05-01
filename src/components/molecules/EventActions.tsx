@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { Stack } from '@mui/material';
 import AttendEventButton from '../global/atoms/AttendEventButton';
 import type { Event, UserInfo } from '../../utilities/GlobalTypes';
@@ -17,12 +17,12 @@ function EventActions({
   orders,
   id,
 }: Props) {
-  const [attending, setAttending] = useState<boolean>(
-    customers.some((customer) => customer.id === user?._id) ||
+  const attending = useMemo(() => {
+    return (
+      customers.some((customer) => customer.id === user?._id) ||
       staff.some((staff) => staff.id === user?._id)
-  );
-
-  console.log(attending);
+    );
+  }, [customers, staff, user]);
 
   return (
     <Stack
@@ -36,12 +36,7 @@ function EventActions({
       my={4}
     >
       {user?.role === 'customer' && (
-        <AttendEventButton
-          orders={orders}
-          id={id}
-          setAttending={setAttending}
-          attending={attending}
-        />
+        <AttendEventButton attending={attending} orders={orders} id={id} />
       )}
       {user?.role === 'customer' && attending && (
         <OrderButton disabled={!takeOrders} />
