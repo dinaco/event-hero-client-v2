@@ -28,12 +28,8 @@ function useAttendEventButton({
       { attending },
       {
         onSuccess: () => {
-          setAttending(!attending);
-          const queriesToInvalidate = Object.values(eventsQueriesVars).map(
-            (key) => key.queryKey
-          );
-          console.log(queriesToInvalidate);
-          queryClient.invalidateQueries();
+          //   setAttending(!attending);
+          queryClient.invalidateQueries([eventsQueriesVars.rootName]);
         },
       }
     );

@@ -7,9 +7,9 @@ import useDebounce from '../Debounce';
 export const useMultipleEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();
   const debouncedSearchTerm = useDebounce(searchEvents, 200);
-  const { queryKey: queryKey, endPoint } = eventsQueriesVars.multipleEvents;
+  const { queryKey, endPoint } = eventsQueriesVars.multipleEvents;
   const { data, isLoading } = useQuery(
-    [queryKey, debouncedSearchTerm],
+    [eventsQueriesVars.rootName, queryKey, debouncedSearchTerm],
     () => fetchRequest('GET', `${endPoint}?q=${searchEvents}`),
     {
       onError: (error: any) =>
@@ -23,7 +23,7 @@ export const useSingleEventQuery = (eventId: string | undefined) => {
   const { fetchRequest } = useServerAPI();
   const { queryKey: queryKey, endPoint } = eventsQueriesVars.singleEvent;
   const { data, isLoading } = useQuery(
-    [queryKey, eventId],
+    [eventsQueriesVars.rootName, queryKey, eventId],
     () => fetchRequest('GET', `${endPoint}${eventId}`),
     {
       onError: (error: any) =>
@@ -51,7 +51,7 @@ export const useUserEventsQuery = () => {
   const { fetchRequest } = useServerAPI();
   const { queryKey: queryKey, endPoint } = eventsQueriesVars.userEvent;
   const { data, isLoading } = useQuery(
-    [queryKey],
+    [eventsQueriesVars.rootName, queryKey],
     () => fetchRequest('GET', endPoint),
     {
       onError: (error: any) =>

@@ -22,6 +22,8 @@ function EventActions({
       staff.some((staff) => staff.id === user?._id)
   );
 
+  console.log(attending);
+
   return (
     <Stack
       sx={{
