@@ -22,7 +22,15 @@ function useAttendEventButton({ attending, orders, id }: AttendingEventProps) {
       { attending },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries([eventsQueriesVars.rootName]);
+          /*           Object.values(eventsQueriesVars).map((key) =>
+            queryClient.invalidateQueries([key.queryKey])
+          ); */
+          // queryClient.invalidateQueries([eventsQueriesVars.rootName]);
+          const { rootName, multipleEvents, singleEvent, userEvent } =
+            eventsQueriesVars;
+          queryClient.invalidateQueries([rootName, multipleEvents.queryKey]);
+          queryClient.invalidateQueries([rootName, singleEvent.queryKey, id]);
+          queryClient.invalidateQueries([rootName, userEvent.queryKey]);
         },
       }
     );

@@ -57,7 +57,12 @@ const useServerAPI = () => {
         ...options,
       }
     );
-    return response.json();
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.log(response);
+      throw new Error(response);
+    }
   }
 
   async function putRequest<T>(url: string, body: T) {
