@@ -1,16 +1,15 @@
-import { FallbackProps } from 'react-error-boundary';
 import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
-interface ErrorFallbackProps extends FallbackProps {
+type ErrorFallbackProps = {
   error: Error;
-}
+};
 
 export const localText = {
   apology:
     "We're sorry: An unexpected error has occurred. Why not try refreshing your page?",
   errorOccurred: (error: Error): string =>
-    `The error that occurred is: ${error.message}`,
+    `The error that occurred is: ${error}`,
   contactUs: (supportUrl: string) => (
     <>
       {' Or you can '}
@@ -20,7 +19,7 @@ export const localText = {
   ),
 };
 
-const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
+const ErrorFallback = ({ error }: ErrorFallbackProps) => {
   return (
     <Box>
       <Typography>
@@ -28,6 +27,9 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error }) => {
         {localText.contactUs('/contact')}
       </Typography>
       <Typography>{localText.errorOccurred(error)}</Typography>
+      <Button onClick={() => window.location.reload()} variant='contained'>
+        {'Refresh The Page'}
+      </Button>
     </Box>
   );
 };

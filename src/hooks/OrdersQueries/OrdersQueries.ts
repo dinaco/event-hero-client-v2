@@ -5,10 +5,10 @@ import useServerAPI from '../../configurations/API/ServerAPI';
 
 export const useMultipleOrdersQuery = (eventId: string | undefined) => {
   const { fetchRequest } = useServerAPI();
-  const { queryKey: queryKey, url } = ordersQueriesVars.multipleOrders;
+  const { queryKey: queryKey, endPoint } = ordersQueriesVars.multipleOrders;
   const { data, isLoading } = useQuery(
     [queryKey, eventId],
-    () => fetchRequest('GET', `${url}${eventId}`),
+    () => fetchRequest('GET', `${endPoint}${eventId}`),
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),

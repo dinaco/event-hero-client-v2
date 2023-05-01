@@ -9,8 +9,8 @@ import { AuthProviderWrapper } from './context/auth.context';
 import { theme } from './configurations/styles/Theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './utilities/ErrorFallback/ErrorFallback';
+import ErrorBoundary from './utilities/ErrorBoundary/ErrorBoundary';
 
 const queryClient = new QueryClient();
 const isDevtoolsEnabled =
@@ -22,7 +22,7 @@ root.render(
     <Router>
       <ThemeProvider theme={theme}>
         <Global styles={GlobalStyle} />
-        <ErrorBoundary fallbackRender={(props) => <ErrorFallback {...props} />}>
+        <ErrorBoundary fallback={(props: any) => <ErrorFallback {...props} />}>
           <QueryClientProvider client={queryClient}>
             <AuthProviderWrapper>
               <App />

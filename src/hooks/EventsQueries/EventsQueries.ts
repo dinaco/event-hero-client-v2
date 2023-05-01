@@ -7,10 +7,10 @@ import useDebounce from '../Debounce';
 export const useMultipleEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();
   const debouncedSearchTerm = useDebounce(searchEvents, 200);
-  const { queryKey: queryKey, url } = eventsQueriesVars.multipleEvents;
+  const { queryKey: queryKey, endPoint } = eventsQueriesVars.multipleEvents;
   const { data, isLoading } = useQuery(
     [queryKey, debouncedSearchTerm],
-    () => fetchRequest('GET', `${url}?q=${searchEvents}`),
+    () => fetchRequest('GET', `${endPoint}?q=${searchEvents}`),
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
@@ -21,10 +21,10 @@ export const useMultipleEventsQuery = (searchEvents = '') => {
 
 export const useSingleEventQuery = (eventId: string | undefined) => {
   const { fetchRequest } = useServerAPI();
-  const { queryKey: queryKey, url } = eventsQueriesVars.singleEvent;
+  const { queryKey: queryKey, endPoint } = eventsQueriesVars.singleEvent;
   const { data, isLoading } = useQuery(
     [queryKey, eventId],
-    () => fetchRequest('GET', `${url}${eventId}`),
+    () => fetchRequest('GET', `${endPoint}${eventId}`),
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
@@ -36,9 +36,9 @@ export const useSingleEventQuery = (eventId: string | undefined) => {
 export const useSingleEventUpdate = (eventId: string | undefined) => {
   const queryClient = useQueryClient();
   const { fetchRequest } = useServerAPI();
-  const { url } = eventsQueriesVars.singleEvent;
+  const { endPoint } = eventsQueriesVars.singleEvent;
   const { mutate, isLoading } = useMutation(
-    (body: any) => fetchRequest('PUT', `${url}${eventId}`, body),
+    (body: any) => fetchRequest('PUT', `${endPoint}${eventId}`, body),
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
@@ -49,10 +49,10 @@ export const useSingleEventUpdate = (eventId: string | undefined) => {
 
 export const useUserEventsQuery = () => {
   const { fetchRequest } = useServerAPI();
-  const { queryKey: queryKey, url } = eventsQueriesVars.userEvent;
+  const { queryKey: queryKey, endPoint } = eventsQueriesVars.userEvent;
   const { data, isLoading } = useQuery(
     [queryKey],
-    () => fetchRequest('GET', url),
+    () => fetchRequest('GET', endPoint),
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),

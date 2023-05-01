@@ -24,17 +24,19 @@ function useAttendEventButton({
       return;
     }
 
-    const body = { attending };
-    mutate(body, {
-      onSuccess: () => {
-        setAttending(!attending);
-        const queriesToInvalidate = Object.values(eventsQueriesVars).map(
-          (key) => key.queryKey
-        );
-        console.log(queriesToInvalidate);
-        queryClient.invalidateQueries();
-      },
-    });
+    mutate(
+      { attending },
+      {
+        onSuccess: () => {
+          setAttending(!attending);
+          const queriesToInvalidate = Object.values(eventsQueriesVars).map(
+            (key) => key.queryKey
+          );
+          console.log(queriesToInvalidate);
+          queryClient.invalidateQueries();
+        },
+      }
+    );
   };
 
   return { changeAttendingStatus };
