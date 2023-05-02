@@ -12,7 +12,13 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ErrorFallback from './utilities/ErrorFallback/ErrorFallback';
 import ErrorBoundary from './utilities/ErrorBoundary/ErrorBoundary';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+    },
+  },
+});
 const isDevtoolsEnabled =
   import.meta.env.VITE_REACT_QUERY_DEVTOOLS !== 'true' ? false : true;
 

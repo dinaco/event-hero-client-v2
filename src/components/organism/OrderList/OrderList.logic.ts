@@ -13,10 +13,10 @@ function useOrderList() {
   const [countCompleted, setCountCompleted] = useState(0);
   const { user } = useContext(AuthContext);
 
-  const { data, isLoading } = useMultipleOrdersQuery(eventId);
+  const { data } = useMultipleOrdersQuery(eventId);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (data) {
       const { orders, events } = data;
       let completed = 0;
       const total = orders.reduce((a: number, b: Order) => {
@@ -36,7 +36,6 @@ function useOrderList() {
     navigate(`/order/${orderId}`);
   };
   return {
-    isLoading,
     eventInfo,
     ordersInfo,
     totalSpent,

@@ -6,7 +6,7 @@ import useServerAPI from '../../configurations/API/ServerAPI';
 export const useMultipleOrdersQuery = (eventId: string | undefined) => {
   const { fetchRequest } = useServerAPI();
   const { queryKey: queryKey, endPoint } = ordersQueriesVars.multipleOrders;
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     [queryKey, eventId],
     () => fetchRequest('GET', `${endPoint}${eventId}`),
     {
@@ -14,5 +14,5 @@ export const useMultipleOrdersQuery = (eventId: string | undefined) => {
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
     }
   );
-  return { data, isLoading };
+  return { data };
 };

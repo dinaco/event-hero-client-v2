@@ -1,12 +1,10 @@
 import { Typography, Stack, Paper, Chip, Box } from '@mui/material';
 import dayjs from 'dayjs';
-import LoadingImg from '../../global/atoms/LoadingImg';
 import EventCard from '../EventCard';
 import useOrderList from './OrderList.logic';
 
 function OrderList() {
   const {
-    isLoading,
     eventInfo,
     ordersInfo,
     totalSpent,
@@ -14,10 +12,6 @@ function OrderList() {
     user,
     handleOrderDetails,
   } = useOrderList();
-
-  if (isLoading) {
-    return <LoadingImg />;
-  }
 
   return (
     <Box>

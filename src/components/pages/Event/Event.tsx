@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import LoadingImg from '../../global/atoms/LoadingImg';
 import EventCard from '../../organism/EventCard';
 import { useParams } from 'react-router-dom';
 import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueries';
@@ -7,11 +6,7 @@ import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueries'
 function Event() {
   const { eventId } = useParams();
 
-  const { data: eventInfo, isLoading } = useSingleEventQuery(eventId);
-
-  if (isLoading) {
-    return <LoadingImg />;
-  }
+  const { data: eventInfo } = useSingleEventQuery(eventId);
 
   if (!eventInfo) {
     return <Typography variant='h2'>We could not find this event!</Typography>;

@@ -1,5 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import MainRoutes from './configurations/router/MainRoutes';
+import { Suspense } from 'react';
+import LoadingImg from './components/global/atoms/LoadingImg';
 
 const App = () => {
   {
@@ -41,7 +43,9 @@ const App = () => {
 
   return (
     <>
-      <MainRoutes />
+      <Suspense fallback={<LoadingImg />}>
+        <MainRoutes />
+      </Suspense>
       <ToastContainer />
     </>
   );

@@ -1,15 +1,10 @@
 import { Paper, Typography, Stack } from '@mui/material';
-import LoadingImg from '../../global/atoms/LoadingImg';
 import Balance from '../../molecules/Balance';
 import TabEvents from './TabEvents/TabEvents';
 import { useUserEventsQuery } from '../../../hooks/EventsQueries/EventsQueries';
 
 function MyAccount() {
-  const { data: UserInfo, isLoading } = useUserEventsQuery();
-
-  if (isLoading) {
-    return <LoadingImg />;
-  }
+  const { data: UserInfo } = useUserEventsQuery();
 
   return (
     <Stack spacing={2}>
