@@ -3,13 +3,15 @@ import SnackBar from '../../utilities/SnackBar';
 import { eventsQueriesVars } from '../../utilities/react-query/constants';
 import useServerAPI from '../../configurations/API/ServerAPI';
 import useDebounce from '../Debounce';
+import ReactQueryHelper from '../../utilities/react-query/ReactQueryHelper';
+import { Event } from '../../utilities/GlobalTypes';
 
 export const useMultipleEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();
   const debouncedSearchTerm = useDebounce(searchEvents, 200);
-  const { queryKey, endPoint } = eventsQueriesVars.multipleEvents;
+  const { endPoint } = eventsQueriesVars.multipleEvents;
   const { data } = useQuery(
-    [eventsQueriesVars.rootName, queryKey, debouncedSearchTerm],
+    ReactQueryHelper.getQueryKeyForeMultipleEvents(debouncedSearchTerm),
     () => fetchRequest('GET', `${endPoint}?q=${searchEvents}`),
     {
       onError: (error: any) =>
@@ -19,11 +21,11 @@ export const useMultipleEventsQuery = (searchEvents = '') => {
   return { data };
 };
 
-export const useSingleEventQuery = (eventId: string | undefined) => {
+export const useSingleEventQuery = (eventId: Pick<Event, 'id'>) => {
   const { fetchRequest } = useServerAPI();
-  const { queryKey: queryKey, endPoint } = eventsQueriesVars.singleEvent;
+  const { endPoint } = eventsQueriesVars.singleEvent;
   const { data } = useQuery(
-    [eventsQueriesVars.rootName, queryKey, eventId],
+    ReactQueryHelper.getQueryKeyForSingleEvent(eventId),
     () => fetchRequest('GET', `${endPoint}${eventId}`),
     {
       onError: (error: any) =>
@@ -49,9 +51,9 @@ export const useSingleEventUpdate = (eventId: string | undefined) => {
 
 export const useUserEventsQuery = () => {
   const { fetchRequest } = useServerAPI();
-  const { queryKey: queryKey, endPoint } = eventsQueriesVars.userEvent;
+  const { endPoint } = eventsQueriesVars.userEvents;
   const { data } = useQuery(
-    [eventsQueriesVars.rootName, queryKey],
+    ReactQueryHelper.getQueryKeyForUserEvents(),
     () => fetchRequest('GET', endPoint),
     {
       onError: (error: any) =>

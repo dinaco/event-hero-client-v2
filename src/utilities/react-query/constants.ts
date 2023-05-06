@@ -1,6 +1,6 @@
 export const eventsQueriesVars = {
   rootName: 'events',
-  userEvent: { queryKey: 'userEvent', endPoint: '/api/my-events' },
+  userEvents: { queryKey: 'userEvent', endPoint: '/api/my-events' },
   multipleEvents: { queryKey: 'multipleEvents', endPoint: '/api/events' },
   singleEvent: { queryKey: 'singleEvent', endPoint: '/api/event/' },
 };

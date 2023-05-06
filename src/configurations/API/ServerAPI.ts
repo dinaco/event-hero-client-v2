@@ -57,12 +57,14 @@ const useServerAPI = () => {
         ...options,
       }
     );
-    if (response.ok) {
-      return response.json();
-    } else {
-      console.log(response);
-      throw new Error(response);
+    if (response.status === 204) {
+      return null;
     }
+
+    if (!response.ok) {
+      throw new Error(await response.json());
+    }
+    return response.json();
   }
 
   async function putRequest<T>(url: string, body: T) {
