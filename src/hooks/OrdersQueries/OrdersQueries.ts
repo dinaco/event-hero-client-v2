@@ -2,12 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import SnackBar from '../../utilities/SnackBar';
 import { ordersQueriesVars } from '../../utilities/react-query/constants';
 import useServerAPI from '../../configurations/API/ServerAPI';
+import ReactQueryHelper from '../../utilities/react-query/ReactQueryHelper';
+import { Event } from '../../utilities/GlobalTypes';
 
-export const useMultipleOrdersQuery = (eventId: string | undefined) => {
+export const useMultipleOrdersQuery = (eventId: Pick<Event, 'id'>) => {
   const { fetchRequest } = useServerAPI();
-  const { queryKey: queryKey, endPoint } = ordersQueriesVars.multipleOrders;
+  const { endPoint } = ordersQueriesVars.multipleOrders;
   const { data } = useQuery(
-    [queryKey, eventId],
+    ReactQueryHelper.getQueryKeyForSingleEventOrders(eventId),
     () => fetchRequest('GET', `${endPoint}${eventId}`),
     {
       onError: (error: any) =>
