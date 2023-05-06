@@ -63,7 +63,12 @@ function EventCard({
   return (
     <Card sx={{ my: 2 }}>
       <Link to={`/event/${id}`}>
-        <CardMedia component='img' image={splashImg} alt={name} />
+        <CardMedia
+          component='img'
+          image={splashImg}
+          alt={name}
+          loading={'lazy'}
+        />
       </Link>
       <Stack sx={{ p: 2 }}>
         <Stack
