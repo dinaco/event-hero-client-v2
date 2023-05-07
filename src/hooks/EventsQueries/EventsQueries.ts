@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import SnackBar from '../../utilities/SnackBar';
 import { eventsQueriesVars } from '../../utilities/react-query/constants';
 import useServerAPI from '../../configurations/API/ServerAPI';
@@ -6,19 +11,24 @@ import useDebounce from '../Debounce';
 import ReactQueryHelper from '../../utilities/react-query/ReactQueryHelper';
 import { Event } from '../../utilities/GlobalTypes';
 
-export const useMultipleEventsQuery = (searchEvents = '') => {
+export const useInfiniteEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();
   const debouncedSearchTerm = useDebounce(searchEvents, 200);
   const { endPoint } = eventsQueriesVars.multipleEvents;
-  const { data } = useQuery(
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ReactQueryHelper.getQueryKeyForeMultipleEvents(debouncedSearchTerm),
-    () => fetchRequest('GET', `${endPoint}?q=${searchEvents}`),
+    ({ pageParam = 0 }) =>
+      fetchRequest(
+        'GET',
+        `${endPoint}?limit=2&page=${pageParam}&q=${searchEvents}`
+      ),
     {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
     }
   );
-  return { data };
+  return { data: data?.pages, fetchNextPage, hasNextPage };
 };
 
 export const useSingleEventQuery = (eventId: Pick<Event, 'id'>) => {

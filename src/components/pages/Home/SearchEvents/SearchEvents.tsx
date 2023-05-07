@@ -1,13 +1,17 @@
-import { TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import EventsList from '../../../organism/EventsList/EventsList';
 import { localText } from './SearchEvents.static';
-import { useMultipleEventsQuery } from '../../../../hooks/EventsQueries/EventsQueries';
+import { useInfiniteEventsQuery } from '../../../../hooks/EventsQueries/EventsQueries';
 import { useState } from 'react';
 
 function SearchEvents() {
   const [searchEvents, setSearchEvents] = useState('');
 
-  const { data: events } = useMultipleEventsQuery(searchEvents);
+  const {
+    data: allPaginatedEvents,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteEventsQuery(searchEvents);
 
   return (
     <>
@@ -21,7 +25,17 @@ function SearchEvents() {
         value={searchEvents}
         fullWidth
       />
-      <EventsList selectedTab={3} userEvents={events} />
+      {allPaginatedEvents?.map((eventsPerLimit, i) => (
+        <EventsList
+          key={i}
+          selectedTab={3}
+          userEvents={eventsPerLimit.events}
+        />
+      ))}
+
+      <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
+        {'Fetch More'}
+      </Button>
     </>
   );
 }

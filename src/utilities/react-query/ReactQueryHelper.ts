@@ -6,11 +6,13 @@ export default class ReactQueryHelper {
    * Returns the {@link QueryKey} to be used on react-query for "storing" the Event information.
    * @param id event id
    */
-  public static getQueryKeyForSingleEvent(id: Pick<Event, 'id'>): QueryKey {
+  public static getQueryKeyForSingleEvent(
+    eventId: Pick<Event, 'id'>
+  ): QueryKey {
     return [
       eventsQueriesVars.rootName,
       eventsQueriesVars.singleEvent.queryKey,
-      id,
+      eventId,
     ];
   }
 
@@ -40,12 +42,12 @@ export default class ReactQueryHelper {
    * @param id event id
    */
   public static getQueryKeyForSingleEventOrders(
-    id: Pick<Event, 'id'>
+    eventId: Pick<Event, 'id'>
   ): QueryKey {
     return [
       ordersQueriesVars.rootName,
       ordersQueriesVars.multipleOrders.queryKey,
-      id,
+      eventId,
     ];
   }
 }
