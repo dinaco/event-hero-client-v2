@@ -1,17 +1,17 @@
 import { Button, TextField, Typography } from '@mui/material';
-import EventsList from '../../../organism/EventsList/EventsList';
 import { localText } from './SearchEvents.static';
-import { useInfiniteEventsQuery } from '../../../../hooks/EventsQueries/EventsQueries';
-import { useState } from 'react';
+import useSearchEvents from './SearchEvents.logic';
+import EventCard from '../../../organism/EventCard';
 
 function SearchEvents() {
-  const [searchEvents, setSearchEvents] = useState('');
-
   const {
-    data: allPaginatedEvents,
+    events,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteEventsQuery(searchEvents);
+    isFetchingNextPage,
+    searchEvents,
+    setSearchEvents,
+  } = useSearchEvents();
 
   return (
     <>
@@ -25,14 +25,10 @@ function SearchEvents() {
         value={searchEvents}
         fullWidth
       />
-      {allPaginatedEvents?.map((eventsPerLimit, i) => (
-        <EventsList
-          key={i}
-          selectedTab={3}
-          userEvents={eventsPerLimit.events}
-        />
+      {events?.map((event) => (
+        <EventCard key={event.id} {...event} />
       ))}
-
+      {isFetchingNextPage && <p>Loading More Events...</p>}
       <Button onClick={() => fetchNextPage()} disabled={!hasNextPage}>
         {'Fetch More'}
       </Button>

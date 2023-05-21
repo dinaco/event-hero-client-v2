@@ -42,7 +42,7 @@ export default class ReactQueryHelper {
    * @param id event id
    */
   public static getQueryKeyForSingleEventOrders(
-    eventId: Pick<Event, 'id'>
+    eventId: string | undefined
   ): QueryKey {
     return [
       ordersQueriesVars.rootName,

@@ -3,9 +3,8 @@ import SnackBar from '../../utilities/SnackBar';
 import { ordersQueriesVars } from '../../utilities/react-query/constants';
 import useServerAPI from '../../configurations/API/ServerAPI';
 import ReactQueryHelper from '../../utilities/react-query/ReactQueryHelper';
-import { Event } from '../../utilities/GlobalTypes';
 
-export const useMultipleOrdersQuery = (eventId: Pick<Event, 'id'>) => {
+export const useMultipleOrdersQuery = (eventId: string | undefined) => {
   const { fetchRequest } = useServerAPI();
   const { endPoint } = ordersQueriesVars.multipleOrders;
   const { data } = useQuery(
@@ -14,6 +13,7 @@ export const useMultipleOrdersQuery = (eventId: Pick<Event, 'id'>) => {
     {
       onError: (error: any) =>
         SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
+      enabled: !!eventId,
     }
   );
   return { data };

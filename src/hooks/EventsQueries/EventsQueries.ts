@@ -14,21 +14,27 @@ import { Event } from '../../utilities/GlobalTypes';
 export const useInfiniteEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();
   const debouncedSearchTerm = useDebounce(searchEvents, 200);
-  const { endPoint } = eventsQueriesVars.multipleEvents;
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ReactQueryHelper.getQueryKeyForeMultipleEvents(debouncedSearchTerm),
-    ({ pageParam = 0 }) =>
-      fetchRequest(
-        'GET',
-        `${endPoint}?limit=2&page=${pageParam}&q=${searchEvents}`
-      ),
-    {
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-      onError: (error: any) =>
-        SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
-    }
-  );
-  return { data: data?.pages, fetchNextPage, hasNextPage };
+  const { endPoint, limitEventsInfiniteQuery } =
+    eventsQueriesVars.multipleEvents;
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery(
+      ReactQueryHelper.getQueryKeyForeMultipleEvents(debouncedSearchTerm),
+      ({ pageParam = 1 }) =>
+        fetchRequest(
+          'GET',
+          `${endPoint}?limit=${limitEventsInfiniteQuery}&page=${pageParam}&q=${searchEvents}`
+        ),
+      {
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+        onError: (error: any) =>
+          SnackBar({
+            message: error.response.data.errorMessage,
+            type: 'error',
+          }),
+      }
+    );
+
+  return { data: data?.pages, fetchNextPage, hasNextPage, isFetchingNextPage };
 };
 
 export const useSingleEventQuery = (eventId: Pick<Event, 'id'>) => {

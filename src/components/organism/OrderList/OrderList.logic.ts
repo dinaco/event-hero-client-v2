@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../context/auth.context';
-import type { Order } from '../../../utilities/GlobalTypes';
+import type { Event, Order } from '../../../utilities/GlobalTypes';
 import { useMultipleOrdersQuery } from '../../../hooks/OrdersQueries/OrdersQueries';
 
 function useOrderList() {
   const { eventId } = useParams();
   const navigate = useNavigate();
-  const [eventInfo, setEventInfo] = useState<Event>();
+  const [eventInfo, setEventInfo] = useState<Event>({} as Event);
   const [ordersInfo, setOrdersInfo] = useState<Order[]>();
   const [totalSpent, setTotalSpent] = useState(0);
   const [countCompleted, setCountCompleted] = useState(0);
