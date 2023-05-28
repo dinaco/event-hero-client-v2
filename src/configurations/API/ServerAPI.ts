@@ -58,7 +58,7 @@ const useServerAPI = () => {
       }
     );
     if (response.status === 204) {
-      return null;
+      return;
     }
 
     if (!response.ok) {
@@ -77,7 +77,11 @@ const useServerAPI = () => {
       );
       return response.json();
     } catch (error: any) {
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      SnackBar({
+        message: error.response.data.errorMessage,
+        type: 'error',
+        toastId: 'put-request-error',
+      });
       throw new Error(error);
     } finally {
       setIsLoading(false);
@@ -94,7 +98,11 @@ const useServerAPI = () => {
       );
       return response.json();
     } catch (error: any) {
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      SnackBar({
+        message: error.response.data.errorMessage,
+        type: 'error',
+        toastId: 'delete-request-error',
+      });
       throw new Error(error);
     } finally {
       setIsLoading(false);
@@ -111,7 +119,11 @@ const useServerAPI = () => {
       );
       return response.json();
     } catch (error: any) {
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      SnackBar({
+        message: error.response.data.errorMessage,
+        type: 'error',
+        toastId: 'verifyAuthToken-error',
+      });
       throw new Error(error);
     } finally {
       setIsLoading(false);
@@ -128,7 +140,11 @@ const useServerAPI = () => {
       );
       return response.json();
     } catch (error: any) {
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      SnackBar({
+        message: error.response.data.errorMessage,
+        type: 'error',
+        toastId: 'login-error',
+      });
       throw new Error(error);
     } finally {
       setIsLoading(false);
@@ -144,7 +160,11 @@ const useServerAPI = () => {
       });
       userLogin(body);
     } catch (error: any) {
-      SnackBar({ message: error.response.data.errorMessage, type: 'error' });
+      SnackBar({
+        message: error.response.data.errorMessage,
+        type: 'error',
+        toastId: 'signup-error',
+      });
       throw new Error(error);
     } finally {
       setIsLoading(false);

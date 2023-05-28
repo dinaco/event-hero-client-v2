@@ -25,7 +25,11 @@ const useProfile = () => {
   const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     putRequest('/api/profile', userSettings).then(() => {
-      SnackBar({ message: 'Profile Updated!', type: 'success' });
+      SnackBar({
+        message: 'Profile Updated!',
+        type: 'success',
+        toastId: 'account-updated',
+      });
       setUserSettings({ ...userSettings, password: '' });
       setUser({
         ...user,
@@ -38,7 +42,7 @@ const useProfile = () => {
   const handleDelete = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     deleteRequest('/api/profile').then(() => {
-      SnackBar({ message: 'Account deleted!' });
+      SnackBar({ message: 'Account deleted!', toastId: 'account-deleted' });
       logoutUser();
       navigate('/');
     });

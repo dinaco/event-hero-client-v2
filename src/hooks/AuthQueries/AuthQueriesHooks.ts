@@ -1,20 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import SnackBar from '../../utilities/SnackBar';
 import useServerAPI from '../../configurations/API/ServerAPI';
 import ReactQueryHelper from '../../utilities/ReactQueryHelper';
 import { authQueriesVars } from './AuthQueriesHooks.static';
+import type { LoginFields } from '../../components/pages/Auth/Login/Login.logic';
+import type { SignUpFields } from '../../components/pages/Auth/SignUp/SignUp.logic';
 
-export const useMultipleOrdersQuery = (eventId: string | undefined) => {
+export const useUserLogin = (body: LoginFields) => {
   const { fetchRequest } = useServerAPI();
-  const { endPoint } = authQueriesVars.signIn;
-  const { data } = useQuery(
-    ReactQueryHelper.getQueryKeyForUserSignIn(eventId),
-    () => fetchRequest('GET', `${endPoint}${eventId}`),
-    {
-      onError: (error: any) =>
-        SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
-      enabled: !!eventId,
-    }
+  const { endPoint } = authQueriesVars.login;
+  const { data } = useQuery(ReactQueryHelper.getQueryKeyForUserLogin(), () =>
+    fetchRequest('POST', `${endPoint}`, body)
   );
   return { data };
 };

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../context/auth.context';
 import type { Event, Order } from '../../../utilities/GlobalTypes';
-import { useMultipleOrdersQuery } from '../../../hooks/AuthQueries/AuthQueriesHooks';
+import { useMultipleOrdersQuery } from '../../../hooks/OrdersQueries/OrdersQueriesHooks';
 
 function useOrderList() {
   const { eventId } = useParams();

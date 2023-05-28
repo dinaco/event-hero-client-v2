@@ -11,11 +11,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ErrorFallback from './utilities/ErrorFallback/ErrorFallback';
 import ErrorBoundary from './utilities/ErrorBoundary/ErrorBoundary';
+import ReactQueryHelper from './utilities/ReactQueryHelper';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       suspense: true,
+      onError: ReactQueryHelper.queryErrorHandler,
     },
   },
 });

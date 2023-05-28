@@ -3,6 +3,7 @@ import { Event } from './GlobalTypes';
 import { eventsQueriesVars } from '../hooks/EventsQueries/EventsQueriesHooks.static';
 import { ordersQueriesVars } from '../hooks/OrdersQueries/OrdersQueriesHooks.static';
 import { authQueriesVars } from '../hooks/AuthQueries/AuthQueriesHooks.static';
+import SnackBar from './SnackBar';
 export default class ReactQueryHelper {
   /**
    * Returns the {@link QueryKey} to be used on react-query for "storing" the Event information.
@@ -54,12 +55,22 @@ export default class ReactQueryHelper {
   }
 
   /**
-   * Returns the {@link QueryKey} to be used on react-query for "storing" a list of orders for a single event.
-   * @param id event id
+   * Returns the {@link QueryKey} to be used on react-query for "storing" users login credentials.
    */
-  public static getQueryKeyForUserSignIn(
-    eventId: string | undefined
-  ): QueryKey {
-    return [authQueriesVars.rootName, authQueriesVars.signIn.queryKey, eventId];
+  public static getQueryKeyForUserLogin(): QueryKey {
+    return [authQueriesVars.rootName, authQueriesVars.login.queryKey];
+  }
+
+  public static queryErrorHandler(error: unknown): void {
+    // error is type unknown because in js, anything can be an error (e.g. throw(5))
+    const toastId = 'react-query-error';
+    const message =
+      error instanceof Error
+        ? // remove the initial 'Error: ' that accompanies many errors
+          error.toString().replace(/^Error:\s*/, '')
+        : 'error connecting to server';
+
+    // prevent duplicate toasts
+    SnackBar({ message, type: 'error', toastId });
   }
 }

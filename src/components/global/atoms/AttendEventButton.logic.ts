@@ -14,6 +14,7 @@ function useAttendEventButton({ attending, orders, id }: AttendingEventProps) {
     if (orders.length) {
       SnackBar({
         message: `You can't unattend from an event that you placed orders`,
+        toastId: `attend-event-${id}`,
       });
       return;
     }

@@ -12,7 +12,11 @@ import SnackBar from '../../utilities/SnackBar';
 }; */
 
 function handleFallback() {
-  SnackBar({ message: 'Permission Denied', type: 'error' });
+  SnackBar({
+    message: 'Permission Denied',
+    type: 'error',
+    toastId: 'protected-routes-error',
+  });
   return <Navigate to='/' />;
 }
 

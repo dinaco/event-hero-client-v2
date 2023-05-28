@@ -4,7 +4,6 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import SnackBar from '../../utilities/SnackBar';
 import useServerAPI from '../../configurations/API/ServerAPI';
 import useDebounce from '../Debounce';
 import ReactQueryHelper from '../../utilities/ReactQueryHelper';
@@ -26,11 +25,6 @@ export const useInfiniteEventsQuery = (searchEvents = '') => {
         ),
       {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
-        onError: (error: any) =>
-          SnackBar({
-            message: error.response.data.errorMessage,
-            type: 'error',
-          }),
       }
     );
 
@@ -42,11 +36,7 @@ export const useSingleEventQuery = (eventId: Pick<Event, 'id'>) => {
   const { endPoint } = eventsQueriesVars.singleEvent;
   const { data } = useQuery(
     ReactQueryHelper.getQueryKeyForSingleEvent(eventId),
-    () => fetchRequest('GET', `${endPoint}${eventId}`),
-    {
-      onError: (error: any) =>
-        SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
-    }
+    () => fetchRequest('GET', `${endPoint}${eventId}`)
   );
   return { data };
 };
@@ -55,12 +45,8 @@ export const useSingleEventUpdate = (eventId: string | undefined) => {
   const queryClient = useQueryClient();
   const { fetchRequest } = useServerAPI();
   const { endPoint } = eventsQueriesVars.singleEvent;
-  const { mutate } = useMutation(
-    (body: any) => fetchRequest('PUT', `${endPoint}${eventId}`, body),
-    {
-      onError: (error: any) =>
-        SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
-    }
+  const { mutate } = useMutation((body: any) =>
+    fetchRequest('PUT', `${endPoint}${eventId}`, body)
   );
   return { mutate, queryClient };
 };
@@ -68,13 +54,8 @@ export const useSingleEventUpdate = (eventId: string | undefined) => {
 export const useUserEventsQuery = () => {
   const { fetchRequest } = useServerAPI();
   const { endPoint } = eventsQueriesVars.userEvents;
-  const { data } = useQuery(
-    ReactQueryHelper.getQueryKeyForUserEvents(),
-    () => fetchRequest('GET', endPoint),
-    {
-      onError: (error: any) =>
-        SnackBar({ message: error.response.data.errorMessage, type: 'error' }),
-    }
+  const { data } = useQuery(ReactQueryHelper.getQueryKeyForUserEvents(), () =>
+    fetchRequest('GET', endPoint)
   );
   return { data };
 };
