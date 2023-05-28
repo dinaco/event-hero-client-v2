@@ -1,5 +1,5 @@
-import { useSingleEventUpdate } from '../../../hooks/EventsQueries/EventsQueries';
-import { eventsQueriesVars } from '../../../hooks/EventsQueries/EventsQueries.static';
+import { useSingleEventUpdate } from '../../../hooks/EventsQueries/EventsQueriesHooks';
+import { eventsQueriesVars } from '../../../hooks/EventsQueries/EventsQueriesHooks.static';
 import type { Event } from '../../../utilities/GlobalTypes';
 import SnackBar from '../../../utilities/SnackBar';
 

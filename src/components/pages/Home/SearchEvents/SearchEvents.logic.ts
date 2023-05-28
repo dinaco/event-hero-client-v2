@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useInfiniteEventsQuery } from '../../../../hooks/EventsQueries/EventsQueries';
+import { useInfiniteEventsQuery } from '../../../../hooks/EventsQueries/EventsQueriesHooks';
 import { Event } from '../../../../utilities/GlobalTypes';
 
 const useSearchEvents = () => {

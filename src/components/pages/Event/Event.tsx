@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import EventCard from '../../organism/EventCard';
 import { useParams } from 'react-router-dom';
-import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueries';
+import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueriesHooks';
 
 function Event() {
   const { eventId } = useParams();

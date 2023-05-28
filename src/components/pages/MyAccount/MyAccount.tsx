@@ -1,7 +1,7 @@
 import { Paper, Typography, Stack } from '@mui/material';
 import Balance from '../../molecules/Balance';
 import TabEvents from './TabEvents/TabEvents';
-import { useUserEventsQuery } from '../../../hooks/EventsQueries/EventsQueries';
+import { useUserEventsQuery } from '../../../hooks/EventsQueries/EventsQueriesHooks';
 
 function MyAccount() {
   const { data: UserInfo } = useUserEventsQuery();
