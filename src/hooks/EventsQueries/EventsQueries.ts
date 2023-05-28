@@ -5,11 +5,11 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import SnackBar from '../../utilities/SnackBar';
-import { eventsQueriesVars } from '../../utilities/react-query/constants';
 import useServerAPI from '../../configurations/API/ServerAPI';
 import useDebounce from '../Debounce';
 import ReactQueryHelper from '../../utilities/react-query/ReactQueryHelper';
 import { Event } from '../../utilities/GlobalTypes';
+import { eventsQueriesVars } from './EventsQueries.static';
 
 export const useInfiniteEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();

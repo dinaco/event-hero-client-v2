@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import SnackBar from '../../utilities/SnackBar';
-import { ordersQueriesVars } from '../../utilities/react-query/constants';
 import useServerAPI from '../../configurations/API/ServerAPI';
 import ReactQueryHelper from '../../utilities/react-query/ReactQueryHelper';
+import { ordersQueriesVars } from './OrdersQueries.static';
 
 export const useMultipleOrdersQuery = (eventId: string | undefined) => {
   const { fetchRequest } = useServerAPI();

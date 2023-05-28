@@ -8,8 +8,3 @@ export const eventsQueriesVars = {
   },
   singleEvent: { queryKey: 'singleEvent', endPoint: '/api/event/' },
 };
-
-export const ordersQueriesVars = {
-  rootName: 'orders',
-  multipleOrders: { queryKey: 'multipleOrders', endPoint: '/api/orders/' },
-};

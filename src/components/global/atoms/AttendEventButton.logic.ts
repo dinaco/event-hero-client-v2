@@ -1,7 +1,7 @@
 import { useSingleEventUpdate } from '../../../hooks/EventsQueries/EventsQueries';
+import { eventsQueriesVars } from '../../../hooks/EventsQueries/EventsQueries.static';
 import type { Event } from '../../../utilities/GlobalTypes';
 import SnackBar from '../../../utilities/SnackBar';
-import { eventsQueriesVars } from '../../../utilities/react-query/constants';
 
 export type AttendingEventProps = {
   attending: boolean;

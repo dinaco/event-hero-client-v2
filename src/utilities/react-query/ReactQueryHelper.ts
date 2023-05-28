@@ -1,6 +1,7 @@
 import { QueryKey } from '@tanstack/react-query';
 import { Event } from '../GlobalTypes';
-import { eventsQueriesVars, ordersQueriesVars } from './constants';
+import { eventsQueriesVars } from '../../hooks/EventsQueries/EventsQueries.static';
+import { ordersQueriesVars } from '../../hooks/OrdersQueries/OrdersQueries.static';
 export default class ReactQueryHelper {
   /**
    * Returns the {@link QueryKey} to be used on react-query for "storing" the Event information.
