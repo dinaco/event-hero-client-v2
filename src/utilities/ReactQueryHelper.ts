@@ -61,7 +61,7 @@ export default class ReactQueryHelper {
     return [authQueriesVars.rootName, authQueriesVars.login.queryKey];
   }
 
-  public static queryErrorHandler(error: unknown): void {
+  public static queryErrorHandler(error: unknown) {
     // error is type unknown because in js, anything can be an error (e.g. throw(5))
     const toastId = 'react-query-error';
     const message =
@@ -70,7 +70,6 @@ export default class ReactQueryHelper {
           error.toString().replace(/^Error:\s*/, '')
         : 'error connecting to server';
 
-    // prevent duplicate toasts
     SnackBar({ message, type: 'error', toastId });
   }
 }

@@ -7,22 +7,32 @@ import { Global } from '@emotion/react';
 import GlobalStyle from './configurations/styles/GlobalStyles';
 import { AuthProviderWrapper } from './context/auth.context';
 import { theme } from './configurations/styles/Theme';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ErrorFallback from './utilities/ErrorFallback/ErrorFallback';
 import ErrorBoundary from './utilities/ErrorBoundary/ErrorBoundary';
 import ReactQueryHelper from './utilities/ReactQueryHelper';
 
 const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: ReactQueryHelper.queryErrorHandler,
+  }),
+  mutationCache: new MutationCache({
+    onError: ReactQueryHelper.queryErrorHandler,
+  }),
   defaultOptions: {
     queries: {
       suspense: true,
-      onError: ReactQueryHelper.queryErrorHandler,
     },
   },
 });
 const isDevtoolsEnabled =
-  import.meta.env.VITE_REACT_QUERY_DEVTOOLS !== 'true' ? false : true;
+  import.meta.env.VITE_REACT_QUERY_DEVTOOLS === 'true' ? true : false;
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(

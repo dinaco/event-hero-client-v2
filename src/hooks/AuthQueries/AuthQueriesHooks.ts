@@ -8,8 +8,12 @@ import type { SignUpFields } from '../../components/pages/Auth/SignUp/SignUp.log
 export const useUserLogin = (body: LoginFields) => {
   const { fetchRequest } = useServerAPI();
   const { endPoint } = authQueriesVars.login;
-  const { data } = useQuery(ReactQueryHelper.getQueryKeyForUserLogin(), () =>
-    fetchRequest('POST', `${endPoint}`, body)
+  const { data } = useQuery(
+    ReactQueryHelper.getQueryKeyForUserLogin(),
+    () => fetchRequest('POST', `${endPoint}`, body),
+    {
+      enabled: !!body,
+    }
   );
   return { data };
 };
