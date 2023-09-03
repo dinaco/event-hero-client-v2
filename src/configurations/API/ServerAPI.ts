@@ -62,7 +62,8 @@ const useServerAPI = () => {
     }
 
     if (!response.ok) {
-      throw new Error(await response.text());
+      const error = await response.json();
+      throw new Error(await error.errorMessage);
     }
     return response.json();
   }

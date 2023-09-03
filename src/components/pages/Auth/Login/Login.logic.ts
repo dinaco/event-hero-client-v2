@@ -3,6 +3,7 @@ import type { HandleClickAuthForm } from '../TabbedAuthForm.static';
 import type { SignUpFields } from '../SignUp/SignUp.logic';
 import useServerAPI from '../../../../configurations/API/ServerAPI';
 import { AuthContext } from '../../../../context/auth.context';
+import { useUserLogin } from '../../../../hooks/AuthQueries/AuthQueriesHooks';
 
 export type LoginFields = Pick<SignUpFields, 'email' | 'password'>;
 
@@ -13,17 +14,12 @@ export const useLogin = () => {
     password: '',
   });
   const { userLogin } = useServerAPI();
+  const { refetch } = useUserLogin(loginInfo);
 
   const handleSubmit = (e: HandleClickAuthForm) => {
     e.preventDefault();
 
-    userLogin(loginInfo).then((response) => {
-      loginUser(response.authToken);
-      setLoginInfo({
-        email: '',
-        password: '',
-      });
-    });
+    refetch();
   };
   return {
     loginInfo,

@@ -25,11 +25,6 @@ const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError: ReactQueryHelper.queryErrorHandler,
   }),
-  defaultOptions: {
-    queries: {
-      suspense: true,
-    },
-  },
 });
 const isDevtoolsEnabled =
   import.meta.env.VITE_REACT_QUERY_DEVTOOLS === 'true' ? true : false;
