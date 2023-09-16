@@ -7,7 +7,6 @@ import {
 import useServerAPI from '../../configurations/API/ServerAPI';
 import useDebounce from '../Debounce';
 import ReactQueryHelper from '../../utilities/ReactQueryHelper';
-import { Event } from '../../utilities/GlobalTypes';
 import { eventsQueriesVars } from './EventsQueriesHooks.static';
 
 export const useInfiniteEventsQuery = (searchEvents = '') => {
@@ -31,7 +30,7 @@ export const useInfiniteEventsQuery = (searchEvents = '') => {
   return { data: data?.pages, fetchNextPage, hasNextPage, isFetchingNextPage };
 };
 
-export const useSingleEventQuery = (eventId?: Pick<Event, 'id'>) => {
+export const useSingleEventQuery = (eventId: string) => {
   const { fetchRequest } = useServerAPI();
   const { endPoint } = eventsQueriesVars.singleEvent;
   const { data } = useQuery(

@@ -5,7 +5,6 @@ import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueriesH
 
 function Event() {
   const { eventId } = useParams();
-
   const { data: eventInfo } = useSingleEventQuery(eventId ?? '');
 
   if (!eventInfo) {
