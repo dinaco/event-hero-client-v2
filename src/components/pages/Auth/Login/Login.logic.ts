@@ -23,8 +23,4 @@ export const useLogin = () => {
   };
 };
 
-const LoginLogic = {
-  useLogin,
-};
-
-export default LoginLogic;
+export default useLogin;

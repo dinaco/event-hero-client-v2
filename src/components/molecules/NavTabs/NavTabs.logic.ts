@@ -8,7 +8,6 @@ type HandleChangeBetweenForms = (
 ) => void;
 
 function useNavTabs({
-  selectedTab,
   setSelectedTab,
 }: Pick<NavTabProps, 'selectedTab' | 'setSelectedTab'>) {
   const handleTabSwitch: HandleChangeBetweenForms = useCallback(
@@ -16,7 +15,7 @@ function useNavTabs({
       e.preventDefault();
       setSelectedTab(newTabValue);
     },
-    [selectedTab]
+    [setSelectedTab]
   );
 
   return {
