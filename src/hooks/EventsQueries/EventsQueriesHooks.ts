@@ -31,12 +31,15 @@ export const useInfiniteEventsQuery = (searchEvents = '') => {
   return { data: data?.pages, fetchNextPage, hasNextPage, isFetchingNextPage };
 };
 
-export const useSingleEventQuery = (eventId: Pick<Event, 'id'>) => {
+export const useSingleEventQuery = (eventId?: Pick<Event, 'id'>) => {
   const { fetchRequest } = useServerAPI();
   const { endPoint } = eventsQueriesVars.singleEvent;
   const { data } = useQuery(
     ReactQueryHelper.getQueryKeyForSingleEvent(eventId),
-    () => fetchRequest('GET', `${endPoint}${eventId}`)
+    () => fetchRequest('GET', `${endPoint}${eventId}`),
+    {
+      enabled: !!eventId,
+    }
   );
   return { data };
 };

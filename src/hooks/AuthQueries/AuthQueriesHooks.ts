@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import useServerAPI from '../../configurations/API/ServerAPI';
 import ReactQueryHelper from '../../utilities/ReactQueryHelper';
 import { authQueriesVars } from './AuthQueriesHooks.static';
@@ -15,18 +15,14 @@ export const useUserLogin = (body: LoginFields) => {
   const { loginUser } = useContext(AuthContext);
   const { fetchRequest } = useServerAPI();
   const { endPoint } = authQueriesVars.login;
-  const { isLoading, refetch } = useQuery(
+  const { mutate: loginMutation } = useMutation(
     ReactQueryHelper.getQueryKeyForUserLogin(),
-    () => fetchRequest('POST', `${endPoint}`, body),
+    () => fetchRequest('POST', endPoint, body),
     {
-      cacheTime: 0,
-      enabled: false,
       onSuccess(data: LoginSuccess) {
         loginUser(data.authToken);
       },
-      networkMode: 'online',
-      retry: false,
     }
   );
-  return { isLoading, refetch };
+  return { loginMutation };
 };

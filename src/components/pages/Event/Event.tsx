@@ -6,7 +6,7 @@ import { useSingleEventQuery } from '../../../hooks/EventsQueries/EventsQueriesH
 function Event() {
   const { eventId } = useParams();
 
-  const { data: eventInfo } = useSingleEventQuery(eventId);
+  const { data: eventInfo } = useSingleEventQuery(eventId ?? '');
 
   if (!eventInfo) {
     return <Typography variant='h2'>We could not find this event!</Typography>;

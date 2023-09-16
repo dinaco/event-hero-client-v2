@@ -3,9 +3,9 @@ import { Skeleton, Box } from '@mui/material';
 function LoadingImg() {
   return (
     <Box my={2}>
-      <Skeleton />
-      <Skeleton animation='wave' />
-      <Skeleton animation={false} />
+      <Skeleton width={100} />
+      <Skeleton width={150} animation='wave' />
+      <Skeleton width={200} animation={false} />
     </Box>
   );
 }
