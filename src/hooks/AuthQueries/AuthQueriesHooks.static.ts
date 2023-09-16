@@ -1,5 +1,3 @@
-import { getStoredDataTokenName } from '../../utilities/localStorageHelper';
-
 enum Path {
   Login = '/auth/login',
   SignUp = '/auth/signup',
@@ -15,7 +13,4 @@ enum Key {
 export const authQueriesVars = {
   rootName: 'auth',
   login: { queryKey: Key.Login, endPoint: Path.Login },
-  get token() {
-    return getStoredDataTokenName(this.rootName);
-  },
 };
