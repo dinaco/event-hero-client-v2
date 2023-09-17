@@ -1,12 +1,12 @@
 import type { PropsWithChildren } from 'react';
-import { useState, useEffect, createContext, useCallback } from 'react';
-import useServerAPI from '../configurations/API/ServerAPI';
+import { useEffect, createContext, useCallback } from 'react';
 import type { UserInfo } from '../utilities/GlobalTypes';
+import { useAuthenticateUser } from '../hooks/AuthQueries/AuthQueriesHooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { authQueriesVars } from '../hooks/AuthQueries/AuthQueriesHooks.static';
 
 type AuthContextType = {
-  isLoggedIn: boolean;
   user?: UserInfo;
-  setUser: (user: UserInfo) => void;
   storeToken: (token: string) => void;
   authenticateUser: () => void;
   logoutUser: () => void;
@@ -17,9 +17,8 @@ type AuthContextType = {
 const AuthContext = createContext({} as AuthContextType);
 
 function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<AuthContextType['user']>();
-  const { verifyAuthToken } = useServerAPI();
+  const { verifyUserQuery } = useAuthenticateUser();
+  const queryClient = useQueryClient();
 
   const storeToken = (token: string) => {
     localStorage.setItem('authToken', token);
@@ -31,6 +30,7 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
 
   const logoutUser = () => {
     removeToken();
+    queryClient.removeQueries([authQueriesVars.verify.queryKey]);
     authenticateUser();
   };
 
@@ -46,37 +46,21 @@ function AuthProviderWrapper({ children }: PropsWithChildren<object>) {
   const authenticateUser = useCallback(() => {
     const storedToken = getToken();
     if (!storedToken) {
-      setIsLoggedIn(false);
-      setUser(undefined);
+      queryClient.removeQueries([authQueriesVars.verify.queryKey]);
       return;
     }
 
-    verifyAuthToken({
-      headers: {
-        Authorization: `Bearer ${storedToken}`,
-      },
-    })
-      .then((response) => {
-        setIsLoggedIn(true);
-        setUser(response);
-      })
-      .catch(() => {
-        setIsLoggedIn(false);
-        setUser(undefined);
-      });
-  }, [verifyAuthToken]);
+    verifyUserQuery();
+  }, [queryClient, verifyUserQuery]);
 
   useEffect(() => {
     authenticateUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [authenticateUser]);
 
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn,
-        user,
-        setUser,
+        user: queryClient.getQueryData([authQueriesVars.verify.queryKey]),
         storeToken,
         authenticateUser,
         logoutUser,

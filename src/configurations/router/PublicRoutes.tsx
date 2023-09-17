@@ -3,8 +3,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 
 function ProtectedRoutes() {
-  const { isLoggedIn } = useContext(AuthContext);
-  return isLoggedIn ? <Navigate to='/my-account' /> : <Outlet />;
+  const { user } = useContext(AuthContext);
+  return user ? <Navigate to='/my-account' /> : <Outlet />;
 }
 
 export default ProtectedRoutes;

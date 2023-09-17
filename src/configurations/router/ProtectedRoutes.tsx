@@ -20,12 +20,12 @@ function handleFallback() {
   return <Navigate to='/' />;
 }
 
-const ProtectedRoutes = ({ rolesRequired }: Record<string, UserRoles[]>) => {
-  const { isLoggedIn, user } = useContext(AuthContext);
+const ProtectedRoutes = ({ requiredRoles }: Record<string, UserRoles[]>) => {
+  const { user } = useContext(AuthContext);
 
-  if (!isLoggedIn || !user) return <Navigate to='/login' />;
+  if (!user) return <Navigate to='/login' />;
 
-  return rolesRequired.includes(user.role) ? <Outlet /> : handleFallback();
+  return requiredRoles.includes(user.role) ? <Outlet /> : handleFallback();
 };
 
 export default ProtectedRoutes;

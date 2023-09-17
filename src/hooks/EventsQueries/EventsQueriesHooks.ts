@@ -8,6 +8,7 @@ import useServerAPI from '../../configurations/API/ServerAPI';
 import useDebounce from '../Debounce';
 import ReactQueryHelper from '../../utilities/ReactQueryHelper';
 import { eventsQueriesVars } from './EventsQueriesHooks.static';
+import { REACT_QUERY_NEVER_REFETCH } from '../AuthQueries/AuthQueriesHooks.static';
 
 export const useInfiniteEventsQuery = (searchEvents = '') => {
   const { fetchRequest } = useServerAPI();

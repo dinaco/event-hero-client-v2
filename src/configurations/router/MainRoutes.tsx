@@ -17,9 +17,9 @@ import LoadingImg from '../../components/global/atoms/LoadingImg';
 
 const MainRoutes = () => (
   <Routes>
-    {/** Public Routes */}
-    {/** Wrap all Route under PublicRoutes element */}
     <Route path='/' element={<Navbar />}>
+      {/** Public Routes */}
+      {/** Wrap all Route under PublicRoutes element */}
       <Route
         path='/'
         element={
@@ -45,7 +45,7 @@ const MainRoutes = () => (
       <Route
         path='/'
         element={
-          <ProtectedRoutes rolesRequired={['customer', 'event-staff']} />
+          <ProtectedRoutes requiredRoles={['customer', 'event-staff']} />
         }
       >
         <Route
@@ -70,7 +70,7 @@ const MainRoutes = () => (
       <Route
         path='/'
         element={
-          <ProtectedRoutes rolesRequired={['app-admin', 'event-admin']} />
+          <ProtectedRoutes requiredRoles={['app-admin', 'event-admin']} />
         }
       >
         <Route path='/admin' element={<AdminPage />} />

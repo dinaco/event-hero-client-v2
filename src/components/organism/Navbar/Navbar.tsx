@@ -18,7 +18,6 @@ function Navbar() {
   const {
     customLogoutUser,
     user,
-    isLoggedIn,
     anchorElNav,
     anchorElUser,
     handleCloseNavMenu,
@@ -68,7 +67,7 @@ function Navbar() {
                   </MenuItem>
                 </Link>
 
-                {!isLoggedIn && (
+                {!user && (
                   <Link to='/login'>
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography textAlign='center'>Login</Typography>
@@ -94,7 +93,7 @@ function Navbar() {
             >
               EVENT HERO
             </Typography>
-            {isLoggedIn && (
+            {user && (
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title='Open settings'>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -117,7 +116,7 @@ function Navbar() {
                   open={!!anchorElUser}
                   onClose={handleCloseUserMenu}
                 >
-                  {isLoggedIn && (
+                  {user && (
                     <div>
                       <Link to='/my-account'>
                         <MenuItem onClick={handleCloseUserMenu}>
@@ -131,7 +130,7 @@ function Navbar() {
                       </Link>
                     </div>
                   )}
-                  {isLoggedIn && user?.role === 'customer' && (
+                  {user && user?.role === 'customer' && (
                     <Link to='/add-funds'>
                       <MenuItem onClick={handleCloseUserMenu}>
                         <Typography textAlign='center'>Add Funds</Typography>

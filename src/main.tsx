@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -17,6 +17,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ErrorFallback from './utilities/ErrorFallback/ErrorFallback';
 import ErrorBoundary from './utilities/ErrorBoundary/ErrorBoundary';
 import ReactQueryHelper from './utilities/ReactQueryHelper';
+import LoadingImg from './components/global/atoms/LoadingImg';
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -42,9 +43,11 @@ root.render(
         <Global styles={GlobalStyle} />
         <ErrorBoundary fallback={(props: any) => <ErrorFallback {...props} />}>
           <QueryClientProvider client={queryClient}>
-            <AuthProviderWrapper>
-              <App />
-            </AuthProviderWrapper>
+            <Suspense fallback={<LoadingImg />}>
+              <AuthProviderWrapper>
+                <App />
+              </AuthProviderWrapper>
+            </Suspense>
             {isDevtoolsEnabled && <ReactQueryDevtools initialIsOpen={false} />}
           </QueryClientProvider>
         </ErrorBoundary>

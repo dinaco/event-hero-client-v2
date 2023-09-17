@@ -5,7 +5,7 @@ import { AuthContext } from '../../../context/auth.context';
 export type HandleClick = React.MouseEvent<HTMLElement>;
 
 const useNavbar = () => {
-  const { isLoggedIn, user, logoutUser } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
   const [anchorElNav, setAnchorElNav] = useState<HTMLElement>();
   const [anchorElUser, setAnchorElUser] = useState<HTMLElement>();
 
@@ -33,7 +33,6 @@ const useNavbar = () => {
   return {
     customLogoutUser,
     user,
-    isLoggedIn,
     anchorElNav,
     anchorElUser,
     handleOpenNavMenu,

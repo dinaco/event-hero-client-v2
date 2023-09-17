@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import type { LoginFields } from '../../components/pages/Auth/Login/Login.logic';
 import type { SignUpFields } from '../../components/pages/Auth/SignUp/SignUp.logic';
 import SnackBar from '../../utilities/SnackBar';
 import { prepareQueryOptions } from '../../utilities/prepareQueryOptions';
+import { AuthContext } from '../../context/auth.context';
 
 enum Path {
   Login = '/auth/login',
@@ -20,16 +21,17 @@ type AuthHeaders = {
 
 const useServerAPI = () => {
   const [isLoading, setIsLoading] = useState(false);
-
-  const getAuthToken = localStorage.getItem('authToken');
-
-  const bearerToken = {
-    headers: {
-      Authorization: `Bearer ${getAuthToken}`,
-    },
-  };
+  const { getToken } = useContext(AuthContext);
 
   const prepareOptions = (method: HttpMethod, body: any): RequestInit => {
+    const getAuthToken = localStorage.getItem('authToken');
+
+    const bearerToken = {
+      headers: {
+        Authorization: `Bearer ${getAuthToken}`,
+      },
+    };
+
     const options = { method, ...bearerToken };
 
     if (body) {
@@ -48,7 +50,7 @@ const useServerAPI = () => {
   async function fetchRequest(
     httpMethod: HttpMethod,
     endPointUrl: string,
-    body: any = null
+    body?: any
   ) {
     const options = prepareQueryOptions(httpMethod, body);
     const response = await fetch(
